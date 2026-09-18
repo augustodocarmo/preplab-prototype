@@ -3,128 +3,111 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PrepLab — Concept Preview</title>
+<title>PrepLab — Interactive Concept Preview</title>
+<meta name="description" content="Interactive PrepLab ordering app concept preview">
 <style>
 *{box-sizing:border-box}
-:root{--bg:#f4f6f2;--card:#fff;--ink:#0f130f;--muted:#667064;--green:#88ff47;--line:#dde5da;--dark:#061009}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
-button{font:inherit;cursor:pointer}
-header{height:94px;background:linear-gradient(90deg,#081109,#0a140b);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 max(16px,4vw);position:sticky;top:0;z-index:20;box-shadow:0 2px 18px rgba(0,0,0,.16)}
-.brand{display:flex;gap:14px;align-items:center;cursor:pointer;min-width:0}.brand img{height:58px;width:auto;display:block}.brand-copy{display:flex;flex-direction:column;min-width:0}.brand b{font-size:clamp(18px,2.2vw,26px);letter-spacing:.06em}.brand small{font-size:clamp(10px,1.4vw,14px);color:#dbe6d8;white-space:nowrap}
-.nav{display:flex;gap:10px;align-items:center}.nav button{background:rgba(255,255,255,.04);border:1px solid rgba(152,255,71,.16);color:#fff;border-radius:14px;padding:14px 18px;transition:.2s}.nav button:hover{background:rgba(255,255,255,.1)}
-main{max-width:1240px;margin:auto;padding:28px max(18px,4vw) 60px}.screen{display:none}.screen.active{display:block}
-.badge{position:fixed;right:14px;bottom:14px;background:#0d0d0d;color:#fff;padding:10px 14px;border-radius:999px;font-size:12px;letter-spacing:.13em;z-index:30}
-.hero{background:#071108;color:#fff;border-radius:34px;display:grid;grid-template-columns:1fr .95fr;overflow:hidden;min-height:560px;box-shadow:0 18px 40px rgba(0,0,0,.08)}
-.hero-copy{padding:68px 64px}.eyebrow{color:#78e63b;font-size:12px;font-weight:800;letter-spacing:.18em}.hero h1,.page h1{font-size:clamp(40px,5.2vw,78px);line-height:.95;margin:16px 0}.hero h1 span{color:var(--green)}.hero p,.page p{color:#cad4c8;line-height:1.6;max-width:600px;font-size:clamp(16px,1.5vw,18px)}
-.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}.primary,.secondary{border-radius:16px;padding:18px 24px;font-weight:800;border:0}.primary{background:var(--green);color:#101410}.secondary{background:#fff;color:#101410}
-.hero-visual{position:relative;min-height:360px;background:radial-gradient(circle at 60% 30%,rgba(108,255,97,.25),transparent 24%),linear-gradient(180deg,#071108,#061007)}
-.hero-glow{position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(100,255,80,.15),transparent 28%)}
-.hero-photo{position:absolute;border-radius:28px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12)}
-.hero-photo img{display:block;width:100%;height:100%;object-fit:cover}
-.hp1{width:320px;height:220px;right:90px;top:104px;transform:rotate(-8deg)}
-.hp2{width:350px;height:240px;right:32px;top:200px;transform:rotate(8deg)}
-.hp3{width:320px;height:225px;right:145px;top:308px;transform:rotate(-2deg)}
-.hero-photo span{position:absolute;left:18px;bottom:18px;background:#fff;color:#111;padding:9px 13px;border-radius:999px;font-weight:800;font-size:14px}
-.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}.q{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;text-align:left}.q.green{background:var(--green);border-color:var(--green)}.q strong,.q small{display:block}.q strong{margin:7px 0 5px;font-size:18px}.q small{color:var(--muted);line-height:1.45}
-.section-head{display:flex;align-items:end;justify-content:space-between;margin:46px 0 18px}.section-head h2{margin:8px 0 0;font-size:34px}.link{border:0;background:transparent;font-weight:800;color:#101410}
-.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.food{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.03)}.food.clickable{cursor:pointer;transition:.2s}.food.clickable:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.08)}.photo{height:250px;background:#e9eee8}.photo img{width:100%;height:100%;display:block;object-fit:cover}.food-body{padding:22px}.food h3{font-size:24px;margin:10px 0 12px}.food p{color:var(--muted);margin:0 0 18px;font-size:16px}.food b{font-size:19px}.pill{display:inline-block;background:#eff6ec;color:#427c27;font-size:11px;font-weight:800;letter-spacing:.08em;padding:8px 10px;border-radius:999px}
-.back{display:block;border:0;background:transparent;font-weight:800;margin-bottom:14px;padding:0;font-size:16px}.page .eyebrow{display:block;margin-bottom:8px}.page h1{font-size:clamp(34px,4vw,60px);margin:10px 0 14px}.page p{color:var(--muted);max-width:760px}
-.toggle{display:inline-flex;background:#e9eee7;padding:5px;border-radius:14px;margin:12px 0 18px}.toggle button{border:0;background:transparent;padding:11px 19px;border-radius:10px;font-weight:800}.toggle .active{background:#111;color:#fff}
-.packages{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.package{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;text-align:left}.package.selected{border:2px solid #111;box-shadow:inset 0 0 0 2px var(--green)}.package small,.package strong,.package span{display:block}.package strong{font-size:28px;margin:7px 0}.package span{color:var(--muted);font-size:12px;line-height:1.4}
-.builder,.summary,.speed,.basket,.payment,.reward,.account-card,.metric,.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px}.builder{margin-top:18px}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}.col{display:flex;flex-direction:column;gap:8px}.col label{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.12em}.choice{border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px;text-align:left}.choice.active{background:#111;color:#fff;border-color:#111}.sticky{position:sticky;bottom:14px;background:#111;color:#fff;border-radius:16px;padding:16px 18px;margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 16px 30px rgba(0,0,0,.18)}.sticky small{display:block;color:#aeb8af}.sticky b{font-size:18px}
-.two{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}.row{display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line)}.summary h2{margin:0 0 10px}.speed{background:linear-gradient(180deg,#92ff5f,#77e43e)}.speed strong{font-size:72px;display:block;line-height:.95}.speed span{font-size:22px}.speed p{color:#1b3510}
-.chips{display:flex;gap:8px;overflow:auto;padding-bottom:8px;margin-bottom:18px}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 14px}.chip.active{background:#111;color:#fff}.menu-note{grid-column:1/-1;background:#eef4ea;border:1px solid var(--line);border-radius:16px;padding:16px;color:#42503f}.menu-note b{display:block;margin-bottom:5px}
-.item{display:grid;grid-template-columns:70px 1fr auto;gap:14px;align-items:center;padding:12px 0}.thumb{width:70px;height:70px;border-radius:12px;overflow:hidden;background:#e9eee8}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.pay{width:100%;border:0;border-radius:12px;padding:14px;margin-top:10px;font-weight:800}.apple{background:#000;color:#fff}.google{background:#fff;border:1px solid var(--line)}.card{background:var(--green)}.note{color:var(--muted);font-size:12px;margin-top:12px;line-height:1.45}
-.reward-hero{background:linear-gradient(140deg,#091109,#111);color:#fff;border-radius:24px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:18px}.reward-hero h1{font-size:clamp(34px,5vw,56px);margin:8px 0 10px}.ring{width:102px;height:102px;border:10px solid var(--green);border-radius:50%;display:grid;place-items:center;font-size:22px;font-weight:900;flex:0 0 auto}.ring span{display:block;line-height:1}.ring small{display:block;font-size:9px;letter-spacing:.18em;color:#bfe9a7;margin-top:4px}
-.reward-grid,.account-grid,.metrics{display:grid;grid-template-colums:repeat(3,1fr);gap:12px;margin-top:16px}.reward button,.account-card{width:100%}.account-card{text-align:left}.account-card strong,.account-card small{display:block}.account-card strong{margin-top:10px;font-size:18px}.account-card small{color:var(--muted);margin-top:4px}
-.metrics{grid-template-columns:repeat(4,1fr)}.metric small,.metric span{display:block;color:var(--muted)}.metric strong{display:block;font-size:32px;margin:8px 0}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.panel h3{margin-top:0}
-footer{max-width:1240px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:13px}
-@media(max-width:980px){.hero{grid-template-columns:1fr}.hero-copy{padding:44px 28px}.hero-visual{min-height:440px}.hero-photo{transform:none !important}.hp1{right:50px;top:44px}.hp2{right:10px;top:165px}.hp3{right:80px;top:285px}.quick,.food-grid,.reward-grid,.account-grid{grid-template-colums:1fr 1fr}.packages{grid-template-colums:1fr 1fr}.choices,.two,.admin-grid{grid-template-columns:1fr}.metrics{grid-template-colums:1fr 1fr}}
-@media(max-width:640px){header{height:auto;align-items:flex-start;gap:14px;flex-direction:column;padding:14px 16px}.brand img{height:52px}.brand small{white-space:normal}.nav{width:100%;display:grid;grid-template-columns:1fr 1fr 1fr}.nav button{padding:12px 10px}.hero h1{font-size:46px}.hero-visual{min-height:360px}.hp1{width:220px;height:155px;right:40px;top:36px}.hp2{width:230px;height:160px;right:16px;top:126px}.hp3{width:220px;height:155px;right:72px;top:218px}.quick,.food-grid,.reward-grid,.account-grid,.metrics{grid-template-columns:1fr}.packages{grid-template-columns:1fr 1fr}.reward-hero{align-items:flex-start;gap:18px}.ring{width:88px;height:88px;border-width:8px;font-size:18px}.sticky{flex-direction:column;align-items:flex-start}footer{flex-direction:column}}
+:root{--bg:#f4f6f2;--card:#fff;--ink:#0e130f;--muted:#687168;--green:#82ff46;--green2:#5fd42e;--line:#dde4da;--dark:#071108;--warn:#fff5dc}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.screen{display:none}.screen.active{display:block}
+header{position:sticky;top:0;z-index:30;background:#071108;color:#fff;padding:12px max(16px,4vw);display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 2px 18px rgba(0,0,0,.14)}
+.brand{display:flex;align-items:center;gap:14px;cursor:pointer;min-width:0}.brand img{height:58px;width:auto}.brand b{display:block;font-size:24px;letter-spacing:.06em}.brand small{display:block;color:#d7dfd5}
+.topnav{display:flex;gap:8px}.topnav button{background:#111c13;border:1px solid #2a422e;color:#fff;border-radius:13px;padding:12px 15px}
+main{max-width:1220px;margin:auto;padding:28px max(18px,4vw) 70px}
+.badge{position:fixed;right:14px;bottom:14px;z-index:40;background:#111;color:#fff;border-radius:999px;padding:9px 13px;font-size:11px;letter-spacing:.12em}
+.eyebrow{display:block;color:#65d932;font-size:11px;font-weight:800;letter-spacing:.17em;margin-bottom:8px}
+.hero{display:grid;grid-template-columns:1fr .9fr;background:#071108;color:#fff;border-radius:30px;overflow:hidden;min-height:510px}
+.hero-copy{padding:58px}.hero h1,.page h1{font-size:clamp(38px,5vw,72px);line-height:.95;margin:12px 0}.hero h1 span{color:var(--green)}.hero p,.page p{line-height:1.6;color:#cbd5ca;font-size:17px;max-width:680px}
+.hero-media{display:flex;align-items:center;justify-content:center;padding:28px;background:radial-gradient(circle,#244d2c 0,#101f13 50%,#071108 80%)}.hero-media img{width:min(100%,510px);max-height:400px;object-fit:cover;border-radius:26px;box-shadow:0 24px 50px #0008}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.primary,.secondary,.ghost{border-radius:14px;padding:14px 19px;font-weight:800}.primary{border:0;background:var(--green);color:#111}.secondary{border:0;background:#fff;color:#111}.ghost{border:1px solid var(--line);background:#fff;color:#111}
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px}.q{background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px;text-align:left}.q.green{background:var(--green);border-color:var(--green)}.q strong,.q small{display:block}.q strong{font-size:17px;margin:8px 0}.q small{color:var(--muted);line-height:1.4}
+.home-panels{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:14px;margin-top:14px}.panel-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}.panel-card.dark{background:#0b130c;color:#fff}.panel-card h3{margin:6px 0 8px}.panel-card p{color:var(--muted);margin:0 0 12px;line-height:1.5}.panel-card.dark p{color:#c7d0c6}.stat{font-size:34px;font-weight:900}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:44px 0 16px}.section-head h2{margin:6px 0 0;font-size:32px}.link{background:none;border:0;font-weight:800}
+.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.food{background:#fff;border:1px solid var(--line);border-radius:21px;overflow:hidden}.food.clickable{cursor:pointer;transition:.18s}.food.clickable:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.08)}.food img{display:block;width:100%;height:230px;object-fit:cover}.food-body{padding:20px}.food h3{font-size:22px;margin:8px 0}.food p{color:var(--muted);line-height:1.5;margin:0 0 14px}.pill{display:inline-block;background:#eff8eb;color:#42742f;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:800;letter-spacing:.07em}
+.back{display:block;border:0;background:transparent;padding:0;margin-bottom:12px;font-weight:800}.page h1{font-size:clamp(34px,4vw,58px);margin:8px 0 12px}.page p{color:var(--muted)}
+.toggle{display:inline-flex;flex-wrap:wrap;background:#e8ede6;padding:5px;border-radius:13px;margin:10px 0 16px}.toggle button{border:0;background:transparent;padding:10px 16px;border-radius:9px;font-weight:800}.toggle button.active{background:#111;color:#fff}
+.packages{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.package{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px;text-align:left}.package.selected{border:2px solid #111;box-shadow:inset 0 0 0 2px var(--green)}.package small,.package strong,.package span{display:block}.package strong{font-size:26px;margin:6px 0}.package span{color:var(--muted);font-size:12px}
+.builder,.cardbox,.summary,.speed,.basket,.payment,.reward,.account-card,.metric,.admin-panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:21px}.builder{margin-top:16px}.choices{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:14px}.col{display:flex;flex-direction:column;gap:7px}.col label{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.12em}.choice{border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px;text-align:left}.choice.active{background:#111;color:#fff;border-color:#111}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:11px;font-weight:800;color:var(--muted)}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff}.field.full{grid-column:1/-1}
+.option-row{display:flex;gap:8px;flex-wrap:wrap}.option-row button{border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px 14px}.option-row button.active{background:#111;color:#fff}
+.sticky{position:sticky;bottom:12px;background:#111;color:#fff;border-radius:15px;padding:14px 16px;margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 12px 28px rgba(0,0,0,.18)}.sticky small{display:block;color:#abb4ac}.sticky b{font-size:18px}
+.chips{display:flex;gap:8px;overflow:auto;padding-bottom:8px;margin-bottom:15px}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 14px}.chip.active{background:#111;color:#fff}.menu-note{grid-column:1/-1;background:#eef4ea;border:1px solid var(--line);border-radius:15px;padding:15px;color:#42503f}.menu-note b{display:block;margin-bottom:4px}
+.two{display:grid;grid-template-columns:1.3fr .7fr;gap:14px}.row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid var(--line)}.speed{background:var(--green)}.speed strong{font-size:64px;display:block}.speed p{color:#1f3a12}
+.item{display:grid;grid-template-columns:65px 1fr auto;gap:12px;align-items:center;padding:12px 0}.item img{width:65px;height:65px;object-fit:cover;border-radius:11px}.pay{width:100%;border:0;border-radius:11px;padding:13px;margin-top:9px;font-weight:800}.apple{background:#000;color:#fff}.google{background:#fff;border:1px solid var(--line)}.cardpay{background:var(--green)}
+.consent{display:flex;gap:10px;align-items:flex-start;padding:9px 0}.consent input{margin-top:3px}.consent small{color:var(--muted);line-height:1.4}
+.reward-hero{background:#081108;color:#fff;border-radius:22px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:18px}.reward-hero h1{font-size:clamp(34px,5vw,52px);margin:7px 0}.ring{width:86px;height:86px;border:7px solid var(--green);border-radius:50%;display:grid;place-items:center;font-size:18px;font-weight:900;flex:0 0 auto}.ring small{display:block;font-size:8px;letter-spacing:.13em;color:#cbe8bd;text-align:center}
+.reward-grid,.account-grid,.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}.account-card{text-align:left}.account-card strong,.account-card small{display:block}.account-card strong{font-size:18px;margin-top:8px}.account-card small{color:var(--muted);margin-top:4px}
+.tracker{display:flex;gap:0;margin-top:18px}.track-step{flex:1;text-align:center;position:relative;padding-top:28px;color:var(--muted)}.track-step:before{content:"";position:absolute;top:10px;left:0;right:0;height:4px;background:#dbe1d9}.track-step:first-child:before{left:50%}.track-step:last-child:before{right:50%}.track-step:after{content:"";position:absolute;top:2px;left:50%;width:20px;height:20px;border-radius:50%;background:#dbe1d9;transform:translateX(-50%)}.track-step.done{color:#111;font-weight:800}.track-step.done:before,.track-step.done:after{background:var(--green2)}
+.subscription-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.sub-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}.sub-card.selected{border:2px solid #111;box-shadow:inset 0 0 0 2px var(--green)}.sub-card strong{font-size:24px;display:block;margin:6px 0}.sub-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.notification-list{display:grid;gap:10px}.notif{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;display:flex;justify-content:space-between;gap:12px}.notif small{color:var(--muted)}
+.referral{background:linear-gradient(135deg,#0b130c,#17251a);color:#fff;border-radius:22px;padding:26px}.referral h2{font-size:36px;margin:6px 0}.ref-code{display:flex;gap:8px;margin-top:14px}.ref-code input{flex:1;border:0;border-radius:11px;padding:12px}
+.metrics{grid-template-columns:repeat(4,1fr)}.metric small,.metric span{display:block;color:var(--muted)}.metric strong{display:block;font-size:31px;margin:7px 0}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.customer-table{width:100%;border-collapse:collapse}.customer-table th,.customer-table td{text-align:left;padding:11px;border-bottom:1px solid var(--line);font-size:13px}.risk{color:#b84626;font-weight:800}.tag{display:inline-block;padding:5px 8px;border-radius:999px;background:#eef3eb;font-size:10px;font-weight:800}
+.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.admin-tabs button{border:1px solid var(--line);background:#fff;padding:10px 13px;border-radius:999px}.admin-tabs button.active{background:#111;color:#fff}
+.note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}.warn{background:var(--warn);border:1px solid #edd9aa;border-radius:13px;padding:12px;margin-top:12px}
+footer{max-width:1220px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:13px}
+@media(max-width:980px){.hero{grid-template-columns:1fr}.quick{grid-template-columns:repeat(2,1fr)}.home-panels{grid-template-columns:1fr}.food-grid,.reward-grid,.account-grid{grid-template-columns:1fr 1fr}.packages{grid-template-columns:repeat(2,1fr)}.choices,.two,.admin-grid{grid-template-columns:1fr}.subscription-grid{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){header{align-items:flex-start;flex-direction:column}.brand img{height:50px}.topnav{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.topnav button{padding:10px 6px}.hero-copy{padding:34px 22px}.hero h1{font-size:45px}.quick,.food-grid,.reward-grid,.account-grid,.metrics,.subscription-grid{grid-template-columns:1fr}.packages{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.tracker{display:block}.track-step{text-align:left;padding:12px 0 12px 35px}.track-step:before{left:9px;right:auto;top:0;bottom:0;width:4px;height:auto}.track-step:first-child:before,.track-step:last-child:before{left:9px;right:auto}.track-step:after{left:11px;top:15px}.sticky{align-items:flex-start;flex-direction:column}.reward-hero{align-items:flex-start}.ring{width:76px;height:76px;border-width:6px;font-size:16px}footer{flex-direction:column}}
 </style>
 </head>
 <body>
 <div class="badge">CONCEPT PREVIEW</div>
 <header>
-  <div class="brand" onclick="show('home')">
-    <img src="assets/logo.png" alt="PrepLab logo">
-    <div class="brand-copy">
-      <b>PREPLAB</b>
-      <small>Healthy Meals · Fresh Results</small>
-    </div>
-  </div>
-  <div class="nav">
-    <button onclick="show('rewards')">★ Rewards</button>
-    <button onclick="show('account')">Account</button>
-    <button onclick="show('basket')">Basket · 2</button>
-  </div>
+<div class="brand" onclick="show('home')"><img src="./assets/logo.webp" alt="PrepLab logo"><div><b>PREPLAB</b><small>Healthy Meals · Fresh Results</small></div></div>
+<div class="topnav"><button onclick="show('rewards')">★ Rewards</button><button onclick="show('account')">Account</button><button onclick="show('basket')">Basket · 2</button></div>
 </header>
 <main>
+
 <section id="home" class="screen active">
-  <div class="hero">
-    <div class="hero-copy">
-      <span class="eyebrow">WEEKLY PREP MADE EASY</span>
-      <h1>Eat better.<br><span>Repeat faster.</span></h1>
-      <p>Fresh meal prep, flexible ordering and a much faster way to repeat your favourites every week.</p>
-      <div class="actions">
-        <button class="primary" onclick="show('weekly')">Order Weekly Prep</button>
-        <button class="secondary" onclick="show('reorder')">Repeat Last Week</button>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-glow"></div>
-      <div class="hero-photo hp1"><img src="assets/hero-trays.jpg" alt="PrepLab meal prep"><span>High Protein</span></div>
-      <div class="hero-photo hp2"><img src="assets/meal-build-1.jpg" alt="PrepLab meal box"><span>Fresh Weekly</span></div>
-      <div class="hero-photo hp3"><img src="assets/meal-build-2.jpg" alt="PrepLab meal box"><span>Built Your Way</span></div>
-    </div>
-  </div>
-
-  <div class="quick">
-    <button class="q green" onclick="show('weekly')">▦<strong>Order Weekly Prep</strong><small>12, 18, 24 or 30 meals</small></button>
-    <button class="q" onclick="show('reorder')">↻<strong>Repeat Last Week</strong><small>Your fastest checkout</small></button>
-    <button class="q" onclick="show('menu')">☰<strong>Order Food Today</strong><small>Browse the full menu</small></button>
-    <button class="q" onclick="show('rewards')">★<strong>PrepLab Points</strong><small>Earn while you order</small></button>
-  </div>
-
-  <div class="section-head">
-    <div><span class="eyebrow">POPULAR THIS WEEK</span><h2>Customer favourites</h2></div>
-    <button class="link" onclick="show('menu')">View menu →</button>
-  </div>
-
-  <div class="food-grid">
-    <article class="food clickable" onclick="show('weekly')">
-      <div class="photo"><img src="assets/meal-regular.jpg" alt="PrepLab regular meal boxes"></div>
-      <div class="food-body"><span class="pill">WEEKLY PREP</span><h3>Regular Meal Boxes</h3><p>Official PrepLab weekly prep image for regular boxes.</p><b>From £60</b></div>
-    </article>
-    <article class="food clickable" onclick="openWeeklyPremium()">
-      <div class="photo"><img src="assets/meal-premium.jpg" alt="PrepLab premium meal boxes"></div>
-      <div class="food-body"><span class="pill">PREMIUM</span><h3>Premium Meal Boxes</h3><p>More protein, with official PrepLab meal imagery.</p><b>From £72</b></div>
-    </article>
-    <article class="food clickable" onclick="show('build')">
-      <div class="photo"><img src="assets/meal-build-1.jpg" alt="PrepLab build your meal"></div>
-      <div class="food-body"><span class="pill">BUILD YOUR MEAL</span><h3>Build Your Meal</h3><p>Protein, carb, greens and sauce — built your way.</p><b>From £8</b></div>
-    </article>
-  </div>
+<div class="hero"><div class="hero-copy"><span class="eyebrow">WEEKLY PREP MADE EASY</span><h1>Eat better.<br><span>Repeat faster.</span></h1><p>Fresh meal prep, flexible ordering and a faster way to repeat your favourites every week.</p><div class="actions"><button class="primary" onclick="show('weekly')">Order Weekly Prep</button><button class="secondary" onclick="show('reorder')">Repeat Last Week</button></div></div><div class="hero-media"><img src="./assets/meal-premium.webp" alt="PrepLab premium meal boxes"></div></div>
+<div class="quick">
+<button class="q green" onclick="show('weekly')">▦<strong>Order Weekly Prep</strong><small>12, 18, 24 or 30 meals</small></button>
+<button class="q" onclick="show('reorder')">↻<strong>Reorder Last Week</strong><small>Bring the full order back</small></button>
+<button class="q" onclick="show('menu')">☰<strong>Order Food Today</strong><small>Browse the PrepLab menu</small></button>
+<button class="q" onclick="show('rewards')">★<strong>My Rewards</strong><small>126 PrepLab Points</small></button>
+<button class="q" onclick="show('favourites')">♥<strong>My Favourites</strong><small>Your saved meals</small></button>
+</div>
+<div class="home-panels">
+<div class="panel-card"><span class="eyebrow">THIS WEEK'S OFFER</span><h3>Example Today's Special</h3><p>Chicken pasta + protein pancakes £3 — shown as an example of the kind of offer PrepLab could publish instantly.</p><button class="ghost" onclick="show('menu')">View offer</button></div>
+<div class="panel-card"><span class="eyebrow">NEW MEALS</span><h3>Fresh menu updates</h3><p>New meal cards could appear here as Ingrid adds them from the admin.</p><button class="ghost" onclick="show('menu')">Browse menu</button></div>
+<div class="panel-card dark"><span class="eyebrow">YOUR POINTS</span><div class="stat">126</div><p>74 more points until £10 PrepLab credit.</p><button class="secondary" onclick="show('rewards')">View rewards</button></div>
+</div>
+<div class="section-head"><div><span class="eyebrow">PREPLAB</span><h2>Weekly meal options</h2></div><button class="link" onclick="show('menu')">View menu →</button></div>
+<div class="food-grid">
+<article class="food clickable" onclick="show('weekly')"><img src="./assets/meal-regular.webp" alt="Regular weekly prep"><div class="food-body"><span class="pill">REGULAR</span><h3>Regular Weekly Prep</h3><p>Choose your weekly package and customise your meals.</p><b>From £60</b></div></article>
+<article class="food clickable" onclick="openWeeklyPremium()"><img src="./assets/meal-premium.webp" alt="Premium weekly prep"><div class="food-body"><span class="pill">MORE PROTEIN</span><h3>Premium Weekly Prep</h3><p>The higher-protein weekly prep option.</p><b>From £72</b></div></article>
+<article class="food clickable" onclick="show('build')"><img src="./assets/meal-build.webp" alt="Build your meal"><div class="food-body"><span class="pill">BUILD YOUR MEAL</span><h3>Build Your Meal</h3><p>Choose protein, carb, greens and sauce.</p><b>From £8</b></div></article>
+</div>
 </section>
 
 <section id="weekly" class="screen page">
-<button class="back" onclick="show('home')">↑ Back</button><span class="eyebrow">WEEKLY PREP</span><h1>Choose your weekly package</h1><p>Pick a size, choose Regular or Premium, then customise your meals.</p>
+<button class="back" onclick="show('home')">← Back</button><span class="eyebrow">WEEKLY PREP</span><h1>Build your weekly order</h1><p>Choose your package, meal type, extras, and how you want to receive it.</p>
 <div class="toggle"><button class="active" onclick="setPlan('regular',this)">Regular</button><button onclick="setPlan('premium',this)">Premium</button></div>
-<div class="packages"><button class="package selected" data-q="12" onclick="pickPkg(this)"><small>12 meals</small><strong data-price>£60</strong><span>Weekly starter</span></button><button class="package" data-q="18" onclick="pickPkg(this)"><small>18 meals</small><strong data-price>£90</strong><span>Popular choice</span></button><button class="package" data-q="24" onclick="pickPkg(this)"><small>24 meals</small><strong data-price>£100</strong><span>Best value</span></button><button class="package" data-q="30" onclick="pickPkg(this)"><small>30 meals</small><strong data-price>£120</strong><span>Full week</span></button><button class="package" data-q="custom" onclick="pickPkg(this)"><small>Custom</small><strong>Ask us</strong><span>Flexible quantity</span></button></div>
-<div class="builder"><span class="eyebrow">BUILD YOUR MEALS</span><h2>Choose a combination</h2><div class="choices"><div class="col"><label>PROTEIN</label><button class="choice active" onclick="pickChoice(this)">Peri Peri Chicken</button><button class="choice" onclick="pickChoice(this)">Salt & Pepper Chicken</button><button class="choice" onclick="pickChoice(this)">Steak +£2</button><button class="choice" onclick="pickChoice(this)">Salmon +£2</button></div><div class="col"><label>CARB</label><button class="choice active" onclick="pickChoice(this)">White Rice</button><button class="choice" onclick="pickChoice(this)">Brown Rice</button><button class="choice" onclick="pickChoice(this)">Sweet Potato Mash</button><button class="choice" onclick="pickChoice(this)">Pasta</button></div><div class="col"><label>GREENS</label><button class="choice active" onclick="pickChoice(this)">Broccoli</button><button class="choice" onclick="pickChoice(this)">Green Beans</button><button class="choice" onclick="pickChoice(this)">Stir Fry Veg</button><button class="choice" onclick="pickChoice(this)">Spinach</button></div></div></div>
+<div class="packages">
+<button class="package selected" data-q="12" onclick="pickPkg(this)"><small>12 meals</small><strong data-price>£60</strong><span>2 meals × 6 days</span></button>
+<button class="package" data-q="18" onclick="pickPkg(this)"><small>18 meals</small><strong data-price>£90</strong><span>3 meals × 6 days</span></button>
+<button class="package" data-q="24" onclick="pickPkg(this)"><small>24 meals</small><strong data-price>£100</strong><span>4 meals × 6 days</span></button>
+<button class="package" data-q="30" onclick="pickPkg(this)"><small>30 meals</small><strong data-price>£120</strong><span>5 meals × 6 days</span></button>
+<button class="package" data-q="custom" onclick="pickPkg(this)"><small>Custom</small><strong>Ask us</strong><span>Pricing to confirm</span></button>
+</div>
+<div class="builder"><span class="eyebrow">MEAL SELECTION</span><h2>Choose a combination</h2><div class="choices">
+<div class="col"><label>PROTEIN</label><button class="choice active" onclick="pickChoice(this)">Chicken</button><button class="choice" onclick="pickChoice(this)">Salt & Pepper Chicken</button><button class="choice" onclick="pickChoice(this)">Peri Peri Chicken</button><button class="choice" onclick="pickChoice(this)">Meatballs</button><button class="choice" onclick="pickChoice(this)">Halloumi +£1</button><button class="choice" onclick="pickChoice(this)">Spiced Halloumi +£1</button><button class="choice" onclick="pickChoice(this)">Quorn</button><button class="choice" onclick="pickChoice(this)">Steak +£2</button><button class="choice" onclick="pickChoice(this)">Salmon +£2</button><button class="choice" onclick="pickChoice(this)">Minted Lamb +£2</button><button class="choice" onclick="pickChoice(this)">Prawns +£2</button></div>
+<div class="col"><label>CARB</label><button class="choice active" onclick="pickChoice(this)">White Rice</button><button class="choice" onclick="pickChoice(this)">Brown Rice</button><button class="choice" onclick="pickChoice(this)">Sweet Potato Mash</button><button class="choice" onclick="pickChoice(this)">Pasta</button><button class="choice" onclick="pickChoice(this)">Ginger & Soya Noodles</button><button class="choice" onclick="pickChoice(this)">New Potatoes</button><button class="choice" onclick="pickChoice(this)">Couscous</button></div>
+<div class="col"><label>GREENS / SIDES</label><button class="choice active" onclick="pickChoice(this)">Broccoli</button><button class="choice" onclick="pickChoice(this)">Green Beans</button><button class="choice" onclick="pickChoice(this)">Stir Fry Veg</button><button class="choice" onclick="pickChoice(this)">Spinach</button><button class="choice" onclick="pickChoice(this)">Kale</button></div>
+<div class="col"><label>SAUCE</label><button class="choice active" onclick="pickChoice(this)">Peppercorn</button><button class="choice" onclick="pickChoice(this)">Thai Green</button><button class="choice" onclick="pickChoice(this)">Mint Yoghurt</button><button class="choice" onclick="pickChoice(this)">Sweet Chilli</button><button class="choice" onclick="pickChoice(this)">Peri Peri</button><button class="choice" onclick="pickChoice(this)">Lemon & Herb</button></div>
+</div></div>
+<div class="cardbox" style="margin-top:14px"><span class="eyebrow">FULFILMENT</span><h2>Collection or delivery?</h2><div class="option-row"><button class="active" onclick="toggleGroup(this)">Delivery</button><button onclick="toggleGroup(this)">Collection</button></div><div class="form-grid" style="margin-top:12px"><div class="field"><label>Preferred day</label><select><option>Friday</option><option>Saturday</option><option>Sunday</option><option>Other / to confirm</option></select></div><div class="field"><label>Delivery area</label><input value="Warrington — free weekly prep delivery" readonly></div></div></div>
 <div class="sticky"><div><small>Selected</small><b><span id="qty">12</span> meals · <span id="plan">Regular</span></b></div><button class="primary" onclick="show('basket')">Continue →</button></div>
 </section>
 
 <section id="reorder" class="screen page">
-<button class="back" onclick="show('home')">↑ Back</button><span class="eyebrow">ONE-TAP REORDER</span><h1>Last week looked good.</h1><p>Review it, edit it, or repeat the whole order in one tap.</p>
-<div class="two"><div class="summary"><h2>18 Meal Regular Prep</h2><div class="row"><span>6× Salt & Pepper Chicken</span><b>6</b></div><div class="row"><span>4× Peri Peri Chicken</span><b>4</b></div><div class="row"><span>4× Steak & Rice</span><b>4</b></div><div class="row"><span>4× Lemon Herb Chicken</span><b>4</b></div><div class="row"><b>Total</b><b>£98.00</b></div><div class="actions"><button class="secondary">Edit order</button><button class="primary" onclick="show('basket')">Repeat this order →</button></div></div><aside class="speed"><strong>37<span>sec</span></strong><h3>From app to checkout</h3><p>Designed around PrepLab’s core goal: make repeat ordering almost effortless.</p></aside></div>
+<button class="back" onclick="show('home')">← Back</button><span class="eyebrow">ONE-TAP REORDER</span><h1>Last week looked good.</h1><p>Review it, edit it, or repeat the entire order in one tap.</p>
+<div class="two"><div class="summary"><h2>18 Meal Regular Prep</h2><div class="row"><span>6× Salt & Pepper Chicken</span><b>6</b></div><div class="row"><span>4× Peri Peri Chicken</span><b>4</b></div><div class="row"><span>4× Steak & Rice</span><b>4</b></div><div class="row"><span>4× Lemon Herb Chicken</span><b>4</b></div><div class="row"><b>Total</b><b>£98.00</b></div><div class="actions"><button class="secondary" onclick="show('weekly')">Edit order</button><button class="primary" onclick="show('basket')">Repeat this order →</button></div></div><aside class="speed"><strong>37 sec</strong><h3>From app to checkout</h3><p>The experience is designed around PrepLab's goal of weekly ordering in under a minute.</p></aside></div>
 </section>
 
 <section id="menu" class="screen page">
-<button class="back" onclick="show('home')">← Back</button>
-<span class="eyebrow">PREPLAB MENU</span>
-<h1>What are you in the mood for?</h1>
-<p>Choose a category to see the relevant PrepLab options.</p>
+<button class="back" onclick="show('home')">← Back</button><span class="eyebrow">PREPLAB MENU</span><h1>What are you in the mood for?</h1><p>Select a category. Where Ingrid has not yet supplied specific items or prices, the concept shows the section without inventing them.</p>
 <div class="chips" id="menuTabs">
 <button class="chip active" onclick="selectMenuCategory('weekly',this)">Weekly Prep</button>
 <button class="chip" onclick="selectMenuCategory('premium',this)">Premium Prep</button>
@@ -136,91 +119,113 @@ footer{max-width:1240px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;
 <button class="chip" onclick="selectMenuCategory('snacks',this)">Protein Snacks</button>
 <button class="chip" onclick="selectMenuCategory('soups',this)">Soups</button>
 <button class="chip" onclick="selectMenuCategory('drinks',this)">Drinks</button>
+<button class="chip" onclick="selectMenuCategory('specials',this)">Today's Specials</button>
 </div>
 <div class="food-grid" id="menuContent"></div>
 </section>
+
 <section id="build" class="screen page">
-<button class="back" onclick="show('menu')">← Back</button>
-<span class="eyebrow">BUILD YOUR MEAL</span>
-<h1>Create your meal</h1>
-<p>Choose a size, then select one protein, one carb, one greens option and one sauce.</p>
-<div class="toggle">
-<button class="active" onclick="setBuildSize('Medium £8',this)">Medium £8</button>
-<button onclick="setBuildSize('Large £9',this)">Large £9</button>
-<button onclick="setBuildSize('XL ţ10',this)">XL  £10</button>
-</div>
-<div class="builder">
-<div class="choices">
-<div class="col"><label>PROTEIN</label><button class="choice active" onclick="pickChoice(this)">Chicken</button><button class="choice" onclick="pickChoice(this)">Salt & Pepper Chicken</button><button class="choice" onclick="pickChoice(this)">Peri Peri Chicken</button><button class="choice" onclick="pickChoice(this)">Meatballs</button><button class="choice" onclick="pickChoice(this)">Halloumi +£1</button><button class="choice" onclick="pickChoice(this)">Steak +£2</button><button class="choice" onclick="pickChoice(this)">Salmon +£2</button><button class="choice" onclick="pickChoice(this)">Prawns +£2</button></div>
-<div class="col"><label>CARB</label><button class="choice active" onclick="pickChoice(this)">White Rice</button><button class="choice" onclick="pickChoice(this)">Brown Rice</button><button class="choice" onclick="pickChoice(this)">Sweet Potato Mash</button><button class="choice" onclick="pickChoice(this)">Pasta</button><button class="choice" onclick="pickChoice(this)">Ginger & Soya Noodles</button><button class="choice" onclick="pickChoice(this)">Couscous</button></div>
-<div class="col"><label>GREENS</label><button class="choice active" onclick="pickChoice(this)">Broccoli</button><button class="choice" onclick="pickChoice(this)">Green Beans</button><button class="choice" onclick="pickChoice(this)">Stir Fry Veg</button><button class="choice" onclick="pickChoice(this)">Spinach</button><button class="choice" onclick="pickChoice(this)">Kale</button></div>
-<div class="col"><label>SAUCE</label><button class="choice active" onclick="pickChoice(this)">Peri Peri</button><button class="choice" onclick="pickChoice(this)">Peppercorn</button><button class="choice" onclick="pickChoice(this)">Sweet Chilli</button><button class="choice" onclick="pickChoice(this)">Lemon & Herb</button><button class="choice" onclick="pickChoice(this)">Mint Yoghurt</button><button class="choice" onclick="pickChoice(this)">Thai Green</button></div>
-</div>
-</div>
+<button class="back" onclick="show('menu')">← Back</button><span class="eyebrow">BUILD YOUR MEAL</span><h1>Create your meal</h1><p>Choose one item from each section, based directly on PrepLab's official Build Your Meal flyer.</p>
+<div class="toggle"><button class="active" onclick="setBuildSize('Medium £8',this)">Medium £8</button><button onclick="setBuildSize('Large £9',this)">Large £9</button><button onclick="setBuildSize('Extra Large £10',this)">Extra Large £10</button></div>
+<div class="builder"><div class="choices">
+<div class="col"><label>PROTEIN</label><button class="choice active" onclick="pickChoice(this)">Chicken</button><button class="choice" onclick="pickChoice(this)">Salt & Pepper Chicken</button><button class="choice" onclick="pickChoice(this)">Peri Peri Chicken</button><button class="choice" onclick="pickChoice(this)">Meatballs</button><button class="choice" onclick="pickChoice(this)">Halloumi +£1</button><button class="choice" onclick="pickChoice(this)">Spiced Halloumi +£1</button><button class="choice" onclick="pickChoice(this)">Quorn</button><button class="choice" onclick="pickChoice(this)">Steak +£2</button><button class="choice" onclick="pickChoice(this)">Salmon +£2</button><button class="choice" onclick="pickChoice(this)">Minted Lamb +£2</button><button class="choice" onclick="pickChoice(this)">Prawns +£2</button></div>
+<div class="col"><label>CARB</label><button class="choice active" onclick="pickChoice(this)">Ginger & Soya Noodles</button><button class="choice" onclick="pickChoice(this)">Sweet Potato Mash</button><button class="choice" onclick="pickChoice(this)">White Rice</button><button class="choice" onclick="pickChoice(this)">Pasta</button><button class="choice" onclick="pickChoice(this)">Brown Rice</button><button class="choice" onclick="pickChoice(this)">New Potatoes</button><button class="choice" onclick="pickChoice(this)">Couscous</button></div>
+<div class="col"><label>GREENS</label><button class="choice active" onclick="pickChoice(this)">Spinach</button><button class="choice" onclick="pickChoice(this)">Stir Fry Veg</button><button class="choice" onclick="pickChoice(this)">Green Beans</button><button class="choice" onclick="pickChoice(this)">Broccoli</button><button class="choice" onclick="pickChoice(this)">Kale</button></div>
+<div class="col"><label>SAUCE</label><button class="choice active" onclick="pickChoice(this)">Peppercorn</button><button class="choice" onclick="pickChoice(this)">Thai Green</button><button class="choice" onclick="pickChoice(this)">Mint Yoghurt</button><button class="choice" onclick="pickChoice(this)">Sweet Chilli</button><button class="choice" onclick="pickChoice(this)">Peri Peri</button><button class="choice" onclick="pickChoice(this)">Lemon & Herb</button></div>
+</div></div>
 <div class="sticky"><div><small>Selected size</small><b id="buildSize">Medium £8</b></div><button class="primary" onclick="show('basket')">Add to basket →</button></div>
 </section>
 
+<section id="favourites" class="screen page">
+<button class="back" onclick="show('home')">← Back</button><span class="eyebrow">MY FAVOURITES</span><h1>Your quickest picks</h1><p>Saved favourites make weekly ordering faster.</p>
+<div class="food-grid"><article class="food clickable" onclick="show('build')"><img src="./assets/meal-build.webp"><div class="food-body"><span class="pill">♥ SAVED</span><h3>Salt & Pepper Chicken</h3><p>Tap to add or customise.</p></div></article><article class="food clickable" onclick="show('build')"><img src="./assets/meal-premium.webp"><div class="food-body"><span class="pill">♥ SAVED</span><h3>Steak & Rice</h3><p>Tap to add or customise.</p></div></article><article class="food"><img src="./assets/meal-build.webp"><div class="food-body"><span class="pill">♥ SAVED</span><h3>Protein Pancakes</h3><p>Menu details to confirm.</p></div></article></div>
+</section>
+
+<section id="subscription" class="screen page">
+<button class="back" onclick="show('account')">← Back</button><span class="eyebrow">PREPLAB WEEKLY</span><h1>Your weekly subscription</h1><p>Visual concept for automatic weekly ordering and payment.</p>
+<div class="subscription-grid"><button class="sub-card selected" onclick="selectSub(this)"><small>EVERY WEEK</small><strong>12 meals</strong><span>Regular or Premium</span></button><button class="sub-card" onclick="selectSub(this)"><small>EVERY WEEK</small><strong>18 meals</strong><span>Regular or Premium</span></button><button class="sub-card" onclick="selectSub(this)"><small>EVERY WEEK</small><strong>24 meals</strong><span>Regular or Premium</span></button><button class="sub-card" onclick="selectSub(this)"><small>EVERY WEEK</small><strong>30 meals</strong><span>Regular or Premium</span></button></div>
+<div class="cardbox" style="margin-top:14px"><h3>Next week's order</h3><div class="sub-actions"><button class="ghost" onclick="show('weekly')">Change meals</button><button class="ghost">Skip this week</button><button class="ghost">Pause subscription</button><button class="ghost">Cancel subscription</button></div><div class="note">Billing day, cut-off time and cancellation/refund rules still need Ingrid's confirmation.</div></div>
+</section>
+
+<section id="tracking" class="screen page">
+<button class="back" onclick="show('account')">← Back</button><span class="eyebrow">ORDER TRACKING</span><h1>Your order is being prepared</h1><p>A visual representation of the status experience Ingrid requested.</p>
+<div class="cardbox"><div class="tracker"><div class="track-step done">Order received ✅</div><div class="track-step done">Preparing 👨‍🍳</div><div class="track-step">Ready for collection 🥗</div><div class="track-step">Out for delivery 🚗</div></div><div class="warn">When the status changes, the real app could automatically notify the customer: “Your PrepLab order is ready for collection.”</div></div>
+</section>
+
+<section id="notifications" class="screen page">
+<button class="back" onclick="show('account')">← Back</button><span class="eyebrow">NOTIFICATIONS</span><h1>PrepLab reminders</h1><p>Visual examples of push/email/SMS messaging — no real notifications are sent in this prototype.</p>
+<div class="notification-list"><div class="notif"><div><b>Ready for next week's PrepLab? 🥗💪</b><small>Reorder your favourites in one tap.</small></div><button class="ghost" onclick="show('reorder')">Reorder</button></div><div class="notif"><div><b>We haven't cooked for you yet 👀</b><small>Get your PrepLab order in for next week.</small></div><button class="ghost" onclick="show('weekly')">Order</button></div><div class="notif"><div><b>Weekly prep ordering closes tomorrow</b><small>Example reminder campaign.</small></div><span class="tag">Weekly Prep</span></div><div class="notif"><div><b>Birthday reward waiting for you 🎂</b><small>Example targeted notification.</small></div><span class="tag">Birthday</span></div></div>
+</section>
+
+<section id="referral" class="screen page">
+<button class="back" onclick="show('account')">← Back</button><div class="referral"><span class="eyebrow">REFER A FRIEND</span><h2>Give £5 — Get £5</h2><p>Your friend gets £5 off their first PrepLab order. You get £5 PrepLab credit.</p><div class="ref-code"><input value="PREPLAB-ALEX-5" readonly><button class="primary">Copy link</button></div></div>
+</section>
+
 <section id="basket" class="screen page">
-<button class="back" onclick="show('home')">← Back</button><span class="eyebrow">CHECKOUT</span><h1>Your basket</h1><p>Simple, short and ready for repeat customers.</p>
-<div class="two"><div class="basket"><div class="item"><div class="thumb"><img src="assets/meal-regular.jpg" alt="Regular meal prep"></div><div><b>18 Meal Regular Prep</b><p>Mixed weekly selection</p></div><b>£90</b></div><div class="item"><div class="thumb"><img src="assets/meal-build-2.jpg" alt="Extra menu item"></div><div><b>Mango Smoothie</b><p>Add-on</p></div><b>£5</b></div><div class="row"><span>Delivery</span><b>FREE · Warrington</b></div></div><div class="payment"><div class="row"><span>Total</span><b>£95.00</b></div><button class="pay apple">🍎 Pay</button><button class="pay google">G Pay</button><button class="pay card">Pay by card</button><div class="note">Visual concept only — No real payment processing.</div></div></div>
+<button class="back" onclick="show('home')">← Back</button><span class="eyebrow">CHECKOUT</span><h1>Your basket</h1><p>Fast checkout, with guest ordering and optional account creation.</p>
+<div class="two"><div class="basket"><div class="item"><img src="./assets/meal-regular.webp"><div><b>18 Meal Regular Prep</b><p>Mixed weekly selection</p></div><b>£90</b></div><div class="row"><span>Delivery</span><b>FREE · Warrington</b></div><div class="form-grid"><div class="field"><label>Name</label><input placeholder="Your name"></div><div class="field"><label>Mobile</label><input placeholder="Mobile number"></div><div class="field"><label>Email</label><input placeholder="Email address"></div><div class="field"><label>Preferred day</label><select><option>Friday</option><option>Saturday</option><option>Sunday</option></select></div><div class="field full"><label>Delivery address</label><input placeholder="Address"></div></div><div class="consent"><input type="checkbox"><small>Send me PrepLab offers and weekly meal reminders by email.</small></div><div class="consent"><input type="checkbox"><small>Send me PrepLab offers and weekly meal reminders by text.</small></div><div class="note">Consent controls are deliberately unticked in this concept.</div></div><div class="payment"><div class="row"><span>Total</span><b>£90.00</b></div><button class="pay apple"> Pay</button><button class="pay google">G Pay</button><button class="pay cardpay">Pay by card</button><button class="ghost" style="width:100%;margin-top:10px">Continue as guest</button><button class="ghost" style="width:100%;margin-top:8px">Save my details for faster ordering next time</button><div class="note">Visual only — no real payment processing or account creation.</div></div></div>
 </section>
 
 <section id="rewards" class="screen page">
-<button class="back" onclick="show('home')">← Back</button><div class="reward-hero"><div><span class="eyebrow">PREPLAB POINTS</span><h1>126 points</h1><p>74 more points until your £10 PrepLab credit.</p></div><div class="ring"><div><span>126</span><small>POINTS</small></div></div></div>
+<button class="back" onclick="show('home')">← Back</button><div class="reward-hero"><div><span class="eyebrow">PREPLAB POINTS</span><h1>126 points</h1><p>74 more points until your £10 PrepLab credit.</p></div><div class="ring"><div>126<small>POINTS</small></div></div></div>
 <div class="reward-grid"><div class="reward"><b>50 points</b><h3>Free Smoothie</h3><button class="primary">Redeem</button></div><div class="reward"><b>100 points</b><h3>Protein Pancakes</h3><button class="primary">Redeem</button></div><div class="reward"><b>200 points</b><h3>£10 PrepLab Credit</h3><button class="secondary">74 pts to go</button></div></div><div class="note">Proposed loyalty structure — subject to client confirmation.</div>
 </section>
 
 <section id="account" class="screen page">
-<button class="back" onclick="show('home')">← Back</button><span class="eyebrow">MY PREPLAB</span><h1>Welcome back, Alex</h1><p>Everything needed for faster weekly ordering.</p>
-<div class="account-grid"><button class="account-card" onclick="show('reorder')">↻<strong>Order history</strong><small>Repeat previous orders</small></button><button class="account-card">♥<strong>Favourites</strong><small>Saved meals and combos</small></button><button class="account-card">⟳<strong>Weekly subscription</strong><small>Change · Skip · Pause</small></button><button class="account-card" onclick="show('rewards')">★<strong>PrepLab Points</strong><small>126 points</small></button><button class="account-card">⌂<strong>Delivery details</strong><small>Saved Warrington address</small></button><button class="account-card">⚙<strong>Preferences</strong><small>Dietary · Allergies · Marketing</small></button></div>
+<button class="back" onclick="show('home')">← Back</button><span class="eyebrow">MY PREPLAB</span><h1>Welcome back, Alex</h1><p>Profile, favourites, subscriptions, tracking and preferences in one place.</p>
+<div class="account-grid"><button class="account-card" onclick="show('reorder')">↻<strong>Order history</strong><small>Repeat previous orders</small></button><button class="account-card" onclick="show('favourites')">♥<strong>Favourites</strong><small>Saved meals</small></button><button class="account-card" onclick="show('subscription')">⟳<strong>Weekly subscription</strong><small>Change · Skip · Pause · Cancel</small></button><button class="account-card" onclick="show('tracking')">📦<strong>Order tracking</strong><small>Current order status</small></button><button class="account-card" onclick="show('notifications')">🔔<strong>Notifications</strong><small>Reminders and offers</small></button><button class="account-card" onclick="show('referral')">🎁<strong>Refer a friend</strong><small>Give £5 · Get £5</small></button></div>
+<div class="cardbox" style="margin-top:14px"><span class="eyebrow">PROFILE & PREFERENCES</span><div class="form-grid"><div class="field"><label>Name</label><input value="Alex Customer"></div><div class="field"><label>Mobile</label><input value="07xxx xxxxxx"></div><div class="field"><label>Email</label><input value="alex@example.com"></div><div class="field"><label>Birthday</label><input value="12 March"></div><div class="field full"><label>Delivery address</label><input value="Warrington"></div><div class="field"><label>Allergies</label><input placeholder="Add allergies"></div><div class="field"><label>Dietary preferences</label><input placeholder="Add preferences"></div></div><div class="consent"><input type="checkbox"><small>Email offers and weekly meal reminders</small></div><div class="consent"><input type="checkbox"><small>Text offers and weekly meal reminders</small></div></div>
 </section>
 
 <section id="admin" class="screen page">
-<button class="back" onclick="show('home')">← Customer preview</button><span class="eyebrow">PREPLAB ADMIN CONCEPT</span><h1>Today at a glance</h1>
-<div class="metrics"><div class="metric"><small>ORDERS</small><strong>43</strong><span>Today</span></div><div class="metric"><small>SALES</small><strong>£1,284</strong><span>Today</span></div><div class="metric"><small>MEALS</small><strong>312</strong><span>To prepare</span></div><div class="metric"><small>DELIVERIES</small><strong>16</strong><span>Today</span></div></div>
-<div class="admin-grid"><div class="panel"><h3>Kitchen prep summary</h3><div class="row"><span>Chicken portions</span><b>148</b></div><div class="row"><span>Rice portions</span><b>136</b></div><div class="row"><span>Broccoli portions</span><b>91</b></div><div class="row"><span>Steak portions</span><b>37</b></div></div><div class="panel"><h3>Customer overview</h3><div class="row"><span>Repeat customers</span><b>68%</b></div><div class="row"><span>Subscriptions</span><b>24</b></div><div class="row"><span>Collections</span><b>27</b></div><div class="row"><span>At risk</span><b>8</b></div></div></div><div class="note">Illustrative figures only — not PrepLab business data.</div>
+<button class="back" onclick="show('home')">← Customer preview</button><span class="eyebrow">PREPLAB ADMIN CONCEPT</span><h1>Run PrepLab from one place</h1>
+<div class="admin-tabs"><button class="active" onclick="showAdminTab('overview',this)">Overview</button><button onclick="showAdminTab('customers',this)">Customers</button><button onclick="showAdminTab('campaigns',this)">Campaigns</button><button onclick="showAdminTab('specials',this)">Today's Special</button></div>
+<div id="admin-overview" class="admin-section"><div class="metrics"><div class="metric"><small>ORDERS</small><strong>43</strong><span>Illustrative</span></div><div class="metric"><small>SALES</small><strong>£1,284</strong><span>Illustrative</span></div><div class="metric"><small>MEALS</small><strong>312</strong><span>Illustrative</span></div><div class="metric"><small>DELIVERIES</small><strong>16</strong><span>Illustrative</span></div></div><div class="admin-grid"><div class="admin-panel"><h3>Kitchen production</h3><div class="row"><span>Chicken portions</span><b>148</b></div><div class="row"><span>Rice portions</span><b>136</b></div><div class="row"><span>Broccoli portions</span><b>91</b></div><div class="row"><span>Steak portions</span><b>37</b></div></div><div class="admin-panel"><h3>Customer overview</h3><div class="row"><span>Total customers</span><b>—</b></div><div class="row"><span>New this month</span><b>—</b></div><div class="row"><span>Average weekly spend</span><b>—</b></div><div class="row"><span>Repeat-order rate</span><b>—</b></div></div></div></div>
+<div id="admin-customers" class="admin-section" style="display:none"><div class="admin-panel"><h3>Customer database</h3><table class="customer-table"><tr><th>Customer</th><th>Last order</th><th>Weekly spend</th><th>Status</th></tr><tr><td>Sarah</td><td>2 weeks ago</td><td>£90</td><td class="risk">At risk</td></tr><tr><td>James</td><td>This week</td><td>£72</td><td><span class="tag">Active</span></td></tr><tr><td>Maya</td><td>This week</td><td>£105</td><td><span class="tag">VIP</span></td></tr></table><div class="warn">Example automation: “Sarah, we haven't seen you for a while ❤️ Here's 10% off your next PrepLab order.”</div></div></div>
+<div id="admin-campaigns" class="admin-section" style="display:none"><div class="admin-panel"><h3>Create a targeted campaign</h3><div class="form-grid"><div class="field"><label>Audience</label><select><option>Customers who haven't ordered for 14 days</option><option>Weekly Prep customers</option><option>Smoothie buyers</option><option>All opted-in customers</option></select></div><div class="field"><label>Channel</label><select><option>Push notification</option><option>Email</option><option>SMS</option></select></div><div class="field full"><label>Message</label><textarea rows="4">Ready for next week's PrepLab? 🥗💪 Reorder your favourites in one tap.</textarea></div></div><button class="primary">Preview campaign</button><div class="note">Visual only — no messages are sent.</div></div></div>
+<div id="admin-specials" class="admin-section" style="display:none"><div class="admin-panel"><h3>Publish Today's Special</h3><div class="form-grid"><div class="field"><label>Offer title</label><input value="Chicken pasta + protein pancakes"></div><div class="field"><label>Offer price</label><input value="£3"></div><div class="field full"><label>Push message</label><input value="🔥 Today's PrepLab special is live"></div></div><button class="primary">Publish special</button><div class="note">This uses Ingrid's own example to demonstrate the feature; it is not presented as a permanent menu item.</div></div></div>
+<div class="note">All dashboard numbers are illustrative concept data, not real PrepLab business figures.</div>
 </section>
+
 </main>
-<footer><div><b>PREPLAB</b> · Concept Preview by A.JAI Consulting</div><button class="link" onclick="show('admin')">View admin concept →</button></footer>
+<footer><div><b>PREPLAB</b> · Interactive Concept Preview by A.JAI Consulting</div><button class="link" onclick="show('admin')">View admin concept →</button></footer>
+
 <script>
-const prices={regular:{12:60,18:90,24:100,30:120},premium:{12:72,18:105,24:120,30:145}};let currentPlan='regular';
-function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='menu'){const first=document.querySelector('#menuTabs .chip');selectMenuCategory('weekly',first)}scrollTo({top:0,behavior:'smooth'})}
-function setPlan(plan,btn){currentPlan=plan;document.querySelectorAll('.toggle button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.getElementById('plan').textContent=plan[0].toUpperCase()+plan.slice(1);document.querySelectorAll('.package[data-q]').forEach(x=>{let q=x.dataset.q,p=x.querySelector('[data-price]');if(p&&prices[plan][q])p.textContent='£'+prices[plan][q]})}
-function pickPkg(btn){document.querySelectorAll('.package').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');document.getElementById('qty').textContent=btn.dataset.q==='custom'?'Custom':btn.dataset.q}
-function pickChoice(btn){btn.parentElement.querySelectorAll('.choice').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
-function openWeeklyPremium(){show('weekly');currentPlan='premium';document.querySelectorAll('.toggle button').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.toggle button')[1].classList.add('active');document.getElementById('plan').textContent='Premium';document.querySelectorAll('.package[data-q]').forEach(x=>{let q=x.dataset.q,p=x.querySelector('[data-price]');if(p&&prices.premium[q])p.textContent='£'+prices.premium[q]})}
-function setBuildSize(size,btn){document.getElementById('buildSize').textContent=size;btn.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+const prices={regular:{12:60,18:90,24:100,30:120},premium:{12:72,18:105,24:120,30:145}};
+function show(id){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});document.getElementById(id).classList.add('active');if(id==='menu'){var first=document.querySelector('#menuTabs .chip');selectMenuCategory('weekly',first)}window.scrollTo({top:0,behavior:'smooth'})}
+function toggleGroup(btn){btn.parentElement.querySelectorAll('button').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
+function setPlan(plan,btn){toggleGroup(btn);document.getElementById('plan').textContent=plan.charAt(0).toUpperCase()+plan.slice(1);document.querySelectorAll('.package[data-q]').forEach(function(x){var q=x.dataset.q,p=x.querySelector('[data-price]');if(p&&prices[plan][q])p.textContent='£'+prices[plan][q]})}
+function pickPkg(btn){document.querySelectorAll('.package').forEach(function(x){x.classList.remove('selected')});btn.classList.add('selected');document.getElementById('qty').textContent=btn.dataset.q==='custom'?'Custom':btn.dataset.q}
+function pickChoice(btn){btn.parentElement.querySelectorAll('.choice').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
+function openWeeklyPremium(){show('weekly');var btns=document.querySelectorAll('#weekly .toggle button');if(btns[1])setPlan('premium',btns[1])}
+function setBuildSize(size,btn){toggleGroup(btn);document.getElementById('buildSize').textContent=size}
+function selectSub(btn){document.querySelectorAll('.sub-card').forEach(function(x){x.classList.remove('selected')});btn.classList.add('selected')}
+function showAdminTab(name,btn){document.querySelectorAll('.admin-section').forEach(function(x){x.style.display='none'});document.getElementById('admin-'+name).style.display='block';document.querySelectorAll('.admin-tabs button').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
+
 const menuData={
 weekly:[
-{title:"Regular Weekly Prep",desc:"Choose 12, 18, 24 or 30 meals, then customise the weekly order.",price:"From £60",img:"./assets/meal-regular.webp",action:"weekly"},
-{title:"Premium Weekly Prep",desc:"The higher-protein weekly prep option.",price:"From £72",img:"./assets/meal-premium.webp",action:"premium"},
-{title:"Build Your Meal",desc:"Choose one protein, one carb, greens and sauce.",price:"Medium £8 · Large £9 · XL £10",img:"./assets/meal-build.webp",action:"build"}
-],
+{title:'Regular Weekly Prep',desc:'Choose 12, 18, 24 or 30 meals, then customise the weekly order.',price:'From £60',img:'./assets/meal-regular.webp',action:'weekly'},
+{title:'Premium Weekly Prep',desc:'The higher-protein weekly prep option.',price:'From £72',img:'./assets/meal-premium.webp',action:'premium'},
+{title:'Build Your Meal',desc:'Choose one protein, one carb, greens and sauce.',price:'Medium £8 · Large £9 · Extra Large £10',img:'./assets/meal-build.webp',action:'build'}],
 premium:[
-{title:"12 Premium Meals",desc:"Premium weekly prep with more protein.",price:"£72",img:"./assets/meal-premium.webp",action:"premium"},
-{title:"18 Premium Meals",desc:"Premium weekly prep with more protein.",price:"£105",img:"./assets/meal-premium.webp",action:"premium"},
-{title:"24 Premium Meals",desc:"Premium weekly prep with more protein.",price:"£120",img:"./assets/meal-premium.webp",action:"premium"},
-{title:"30 Premium Meals",desc:"Premium weekly prep with more protein.",price:"£145",img:"./assets/meal-premium.webp",action:"premium"}
-],
-hot:[
-{title:"Salt & Pepper Chicken",desc:"With Brown Rice, Broccoli & Peppercorn Sauce.",price:"Price to be confirmed",img:"./assets/meal-build.webp",action:"build"},
-{title:"Piri Piri Chicken",desc:"With Sweet Potato Mash & Green Beans.",price:"Price to be confirmed",img:"./assets/meal-build.webp",action:"build"},
-{title:"Beef Meatballs",desc:"With Tomato Sauce, Pasta & Spinach.",price:"Price to be confirmed",img:"./assets/meal-build.webp",action:"build"},
-{title:"Salmon",desc:"With White Rice, Kale & Mint Yoghurt Sauce.",price:"Price to be confirmed",img:"./assets/meal-build.webp",action:"build"},
-{title:"Spiced Halloumi",desc:"With Couscous, Stir Fry Veg & Thai Green Sauce.",price:"Price to be confirmed",img:"./assets/meal-build.webp",action:"build"}
-],
-breakfast:[{title:"Breakfast Menu",desc:"Breakfast is a confirmed PrepLab menu category. Individual items and prices still need client confirmation.",price:"Details to confirm",img:"./assets/meal-build.webp"}],
-pancakes:[{title:"Protein Pancakes",desc:"A confirmed PrepLab menu category and proposed rewards item.",price:"Details to confirm",img:"./assets/meal-build.webp"}],
-wraps:[{title:"Wraps",desc:"Wraps are a confirmed PrepLab menu category. Flavours and prices still need client confirmation.",price:"Details to confirm",img:"./assets/meal-build.webp"}],
-smoothies:[{title:"Smoothies",desc:"Smoothies are a confirmed PrepLab menu category. Flavours and prices still ned client confirmation.",price:"Details to confirm",img:"./assets/meal-build.webp"}],
-snacks:[{title:"Protein Snacks",desc:"Protein Snacks are a confirmed PrepLab menu category. Products and prices still need client confirmation.",price:"Details to confirm",img:"./assets/meal-build.webp"}],
-soups:[{title:"Soups",desc:"Soups are a confirmed PrepLab menu category. Soup choices and prices still need client confirmation.",price:"Details to confirm",img:"./assets/meal-build.webp"}],
-drinks:[{title:"Drinks",desc:"Drinks are a confirmed PrepLab menu category. Individual drinks and prices still need client confirmation.",price:"Details to confirm",img:"./assets/meal-build.webp"}]
+{title:'12 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£72',img:'./assets/meal-premium.webp',action:'premium'},
+{title:'18 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£105',img:'./assets/meal-premium.webp',action:'premium'},
+{title:'24 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£120',img:'./assets/meal-premium.webp',action:'premium'},
+{title:'30 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£145',img:'./assets/meal-premium.webp',action:'premium'}],
+hot:[{title:'Build Your Hot Meal',desc:'Use PrepLab\'s confirmed Build Your Meal options: protein, carb, greens and sauce.',price:'From £8',img:'./assets/meal-build.webp',action:'build'}],
+breakfast:[{title:'Breakfast',desc:'This is a confirmed PrepLab menu category. Individual breakfast products and prices still need Ingrid\'s confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
+pancakes:[{title:'Protein Pancakes',desc:'Confirmed PrepLab menu category and proposed rewards item.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
+wraps:[{title:'Wraps',desc:'Confirmed PrepLab menu category. Flavours and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
+smoothies:[{title:'Smoothies',desc:'Confirmed PrepLab menu category. Flavours and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
+snacks:[{title:'Protein Snacks',desc:'Confirmed PrepLab menu category. Products and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
+soups:[{title:'Soups',desc:'Confirmed PrepLab menu category. Soup choices and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
+drinks:[{title:'Drinks',desc:'Confirmed PrepLab menu category. Individual drinks and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
+specials:[{title:'Example Today\'s Special',desc:'Chicken pasta + protein pancakes £3 — this is Ingrid\'s own example of how the specials feature could work.',price:'Example: £3',img:'./assets/meal-build.webp'}]
 };
-function runMenuAction(action){if(action==="weekly")show("weekly");else if(action==="premium")openWeeklyPremium();else if(action==="build")show("build")}
-function selectMenuCategory(category,btn){document.querySelectorAll("#menuTabs .chip").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");renderMenu(category)}
-function renderMenu(category){const container=document.getElementById("menuContent");if(!container)return;const items=menuData[category]||[];container.innerHTML=items.map(item=>{const clickable=item.action?" clickable":"";const click=item.action?' onclick="runMenuAction(\\\''+item.action+'\\\')"':'';return '<article class="food'+klickable+'"'+click+'><div class="photo"><img src="'+item.img+'" alt="'+item.title+'"></div><div class="food-body"><h3>'+item.title+'</h3><p>'+item.desc+'</p><b>'+item.price+'</b></div></article>'}).join("");if(["breakfast","pancakes","wraps","smoothies","snacks","soups","drinks"].includes(category)){container.innerHTML+='<div class="menu-note"><b>Concept note</b>The category is confirmed by PrepLab, but the detailed products and prices for this section were not supplied in the material we have. This prototype does not invent them.</div>'}}
-renderMenu("weekly");
+function runMenuAction(action){if(action==='weekly')show('weekly');else if(action==='premium')openWeeklyPremium();else if(action==='build')show('build')}
+function selectMenuCategory(category,btn){document.querySelectorAll('#menuTabs .chip').forEach(function(x){x.classList.remove('active')});if(btn)btn.classList.add('active');renderMenu(category)}
+function renderMenu(category){var c=document.getElementById('menuContent');if(!c)return;var items=menuData[category]||[];c.innerHTML=items.map(function(item){var clickable=item.action?' clickable':'';var click=item.action?' onclick="runMenuAction(\''+item.action+'\')"':'';return '<article class="food'+clickable+'"'+click+'><img src="'+item.img+'" alt="'+item.title+'"><div class="food-body"><h3>'+item.title+'</h3><p>'+item.desc+'</p><b>'+item.price+'</b></div></article>'}).join('');if(['breakfast','pancakes','wraps','smoothies','snacks','soups','drinks'].indexOf(category)>=0)c.innerHTML+='<div class="menu-note"><b>Concept note</b>The section is confirmed by Ingrid, but the detailed products and prices have not yet been supplied, so this prototype does not invent them.</div>'}
+renderMenu('weekly');
 </script>
 </body>
 </html>
