@@ -142,6 +142,28 @@ header{
   .flask-label strong{font-size:18px}
 }
 
+
+.drawer-group{display:flex;flex-direction:column;gap:8px}
+.drawer-section{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  text-align:left;background:rgba(255,255,255,.04);
+  border:1px solid rgba(130,255,70,.17);color:#fff;
+  border-radius:14px;padding:16px 18px;font-weight:800
+}
+.drawer-section .chev{font-size:18px;transition:transform .18s ease}
+.drawer-group.open .drawer-section .chev{transform:rotate(90deg)}
+.drawer-submenu{
+  display:none;flex-direction:column;gap:7px;padding:0 0 2px 12px
+}
+.drawer-group.open .drawer-submenu{display:flex}
+.drawer-sublink{
+  width:100%;text-align:left;background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.08);color:#eaf0e8;
+  border-radius:12px;padding:12px 14px;font-size:14px
+}
+.drawer-sublink:hover,.drawer-link:hover,.drawer-section:hover{background:rgba(255,255,255,.08)}
+.drawer-separator{height:1px;background:rgba(255,255,255,.08);margin:2px 0}
+
 </style>
 </head>
 <body>
@@ -160,8 +182,40 @@ header{
       <img id="prepLabDrawerLogo" src="./assets/logo.webp" alt="PrepLab logo" onload="makeLogoBackgroundTransparent(this)">
       <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer(false)">×</button>
     </div>
-    <button class="drawer-link" onclick="toggleDrawer(false);show('rewards')">★ Rewards<small>PrepLab Points and rewards</small></button>
-    <button class="drawer-link" onclick="toggleDrawer(false);show('account')">Account<small>Profile, favourites and subscriptions</small></button>
+
+    <button class="drawer-link" onclick="toggleDrawer(false);show('home')">Home<small>PrepLab home</small></button>
+
+    <div class="drawer-group" id="drawer-order">
+      <button class="drawer-section" onclick="toggleDrawerGroup('drawer-order')">
+        <span>Order</span><span class="chev">›</span>
+      </button>
+      <div class="drawer-submenu">
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('weekly')">Weekly Prep</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('menu')">Order Today / Full Menu</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('build')">Build Your Meal</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);openMenuCategory('specials')">Today's Specials</button>
+      </div>
+    </div>
+
+    <button class="drawer-link" onclick="toggleDrawer(false);show('reorder')">Repeat Last Week<small>Reorder in one tap</small></button>
+
+    <div class="drawer-group" id="drawer-account">
+      <button class="drawer-section" onclick="toggleDrawerGroup('drawer-account')">
+        <span>Account</span><span class="chev">›</span>
+      </button>
+      <div class="drawer-submenu">
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('account')">Profile & Delivery Details</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('reorder')">Order History</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('tracking')">Order Tracking</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('favourites')">Favourites</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('rewards')">Rewards / PrepLab Points</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('subscription')">Weekly Subscription</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('notifications')">Notifications & Preferences</button>
+        <button class="drawer-sublink" onclick="toggleDrawer(false);show('referral')">Refer a Friend</button>
+      </div>
+    </div>
+
+    <div class="drawer-separator"></div>
     <button class="drawer-link" onclick="toggleDrawer(false);show('basket')">Basket · 2<small>Review your current order</small></button>
   </aside>
 </div>
@@ -314,6 +368,25 @@ function toggleDrawer(open){
   drawer.classList.toggle('open',open);
   drawer.setAttribute('aria-hidden',open?'false':'true');
   document.body.style.overflow=open?'hidden':'';
+  if(!open){
+    document.querySelectorAll('.drawer-group').forEach(function(g){g.classList.remove('open')});
+  }
+}
+function toggleDrawerGroup(id){
+  const group=document.getElementById(id);
+  if(!group)return;
+  const willOpen=!group.classList.contains('open');
+  document.querySelectorAll('.drawer-group').forEach(function(g){g.classList.remove('open')});
+  if(willOpen)group.classList.add('open');
+}
+function openMenuCategory(category){
+  show('menu');
+  const buttons=Array.from(document.querySelectorAll('#menuTabs .chip'));
+  const btn=buttons.find(function(b){
+    const oc=b.getAttribute('onclick')||'';
+    return oc.indexOf("'"+category+"'")>=0;
+  });
+  selectMenuCategory(category,btn||null);
 }
 function show(id){toggleDrawer(false);document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});document.getElementById(id).classList.add('active');if(id==='menu'){var first=document.querySelector('#menuTabs .chip');selectMenuCategory('weekly',first)}window.scrollTo({top:0,behavior:'smooth'})}
 function toggleGroup(btn){btn.parentElement.querySelectorAll('button').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
