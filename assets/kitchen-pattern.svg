@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
-  <rect width="600" height="600" fill="#f4f6f2"/>
-  <g stroke="#b9c1b5" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.34">
+  
+  <g stroke="#7f8d79" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.22">
     <!-- spoon -->
     <g transform="translate(60 55) rotate(-18)"><ellipse cx="18" cy="12" rx="11" ry="15"/><path d="M18 27v48"/></g>
     <!-- fork -->
@@ -32,6 +32,6 @@
     <!-- heart -->
     <g transform="translate(334 490) rotate(8)"><path d="M18 38S0 28 0 14A10 10 0 0 1 18 8a10 10 0 0 1 18 6c0 14-18 24-18 24z"/></g>
     <!-- chat bubble -->
-    <g transform="translate(450 492) rotate(-10)"><rect x="0" y="0" rx="8" ry="8" width="54" height="34"/><path d="M12 34l-8 11 17-11"/></g>
+    <g transform="translate(450 492) rotate(-10)"><path d="M12 34l-8 11 17-11"/></g>
   </g>
 </svg>
