@@ -49,14 +49,122 @@ main{max-width:1220px;margin:auto;padding:28px max(18px,4vw) 70px}
 footer{max-width:1220px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:13px}
 @media(max-width:980px){.hero{grid-template-columns:1fr}.quick{grid-template-columns:repeat(2,1fr)}.home-panels{grid-template-columns:1fr}.food-grid,.reward-grid,.account-grid{grid-template-columns:1fr 1fr}.packages{grid-template-columns:repeat(2,1fr)}.choices,.two,.admin-grid{grid-template-columns:1fr}.subscription-grid{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){header{align-items:flex-start;flex-direction:column}.brand img{height:50px}.topnav{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.topnav button{padding:10px 6px}.hero-copy{padding:34px 22px}.hero h1{font-size:45px}.quick,.food-grid,.reward-grid,.account-grid,.metrics,.subscription-grid{grid-template-columns:1fr}.packages{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.tracker{display:block}.track-step{text-align:left;padding:12px 0 12px 35px}.track-step:before{left:9px;right:auto;top:0;bottom:0;width:4px;height:auto}.track-step:first-child:before,.track-step:last-child:before{left:9px;right:auto}.track-step:after{left:11px;top:15px}.sticky{align-items:flex-start;flex-direction:column}.reward-hero{align-items:flex-start}.ring{width:76px;height:76px;border-width:6px;font-size:16px}footer{flex-direction:column}}
+
+/* PrepLab presentation refinements */
+header{
+  position:sticky;top:0;z-index:30;
+  height:116px;
+  background:#071108;
+  color:#fff;
+  padding:0 max(16px,4vw);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 18px rgba(0,0,0,.14)
+}
+.brand{display:flex;align-items:center;justify-content:center;gap:0;cursor:pointer}
+.brand img{height:88px;width:auto;object-fit:contain;display:block}
+.brand>div{display:none}
+.topnav{display:none}
+.menu-toggle{
+  position:absolute;left:max(16px,4vw);top:50%;transform:translateY(-50%);
+  width:46px;height:46px;border:1px solid rgba(255,255,255,.14);
+  border-radius:12px;background:rgba(255,255,255,.035);
+  display:grid;place-items:center;color:#fff;z-index:2
+}
+.menu-toggle span,.menu-toggle span:before,.menu-toggle span:after{
+  display:block;width:22px;height:2px;background:#fff;border-radius:2px;content:""
+}
+.menu-toggle span{position:relative}
+.menu-toggle span:before{position:absolute;left:0;top:-7px}
+.menu-toggle span:after{position:absolute;left:0;top:7px}
+.drawer{position:fixed;inset:0;z-index:70;display:none}
+.drawer.open{display:block}
+.drawer-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.46)}
+.drawer-panel{
+  position:absolute;left:0;top:0;height:100%;width:min(310px,84vw);
+  background:#081109;color:#fff;padding:24px 18px;
+  box-shadow:20px 0 40px rgba(0,0,0,.3);
+  display:flex;flex-direction:column;gap:12px
+}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.drawer-head img{height:64px;width:auto}
+.drawer-close{border:0;background:transparent;color:#fff;font-size:30px;line-height:1}
+.drawer-link{
+  width:100%;text-align:left;background:rgba(255,255,255,.04);
+  border:1px solid rgba(130,255,70,.17);color:#fff;
+  border-radius:14px;padding:16px 18px;font-weight:800
+}
+.drawer-link small{display:block;color:#bdc8bd;font-weight:400;margin-top:4px}
+.reward-hero{align-items:center}
+.flask-meter{
+  position:relative;width:132px;height:160px;flex:0 0 auto;
+  filter:drop-shadow(0 0 12px rgba(130,255,70,.13))
+}
+.flask-shell{
+  position:absolute;inset:0;
+  background:#f6f8f4;
+  clip-path:polygon(39% 5%,61% 5%,61% 26%,82% 69%,95% 94%,5% 94%,18% 69%,39% 26%);
+}
+.flask-inner{
+  position:absolute;inset:6px;
+  background:#081108;
+  clip-path:polygon(39% 5%,61% 5%,61% 26%,82% 69%,95% 94%,5% 94%,18% 69%,39% 26%);
+}
+.flask-liquid{
+  position:absolute;left:15px;right:15px;bottom:15px;height:63%;
+  background:linear-gradient(180deg,#a7ff66 0%,#62ee2a 28%,#2eba0a 100%);
+  clip-path:polygon(12% 0,88% 0,100% 100%,0 100%);
+  border-radius:0 0 18px 18px;
+  box-shadow:inset 0 8px 14px rgba(255,255,255,.22),0 0 18px rgba(130,255,70,.28)
+}
+.flask-liquid:before{
+  content:"";position:absolute;left:0;right:0;top:-8px;height:17px;
+  border-radius:50%;background:rgba(214,255,190,.78)
+}
+.flask-bubble{position:absolute;border-radius:50%;background:#85ff3e;box-shadow:0 0 9px rgba(133,255,62,.6)}
+.flask-bubble.one{width:9px;height:9px;right:31px;top:17px}
+.flask-bubble.two{width:13px;height:13px;right:43px;top:37px}
+.flask-bubble.three{width:7px;height:7px;right:60px;top:54px}
+.flask-label{
+  position:absolute;left:0;right:0;bottom:35px;text-align:center;
+  font-weight:900;line-height:1;color:#fff
+}
+.flask-label strong{display:block;font-size:21px}
+.flask-label small{display:block;font-size:9px;letter-spacing:.18em;margin-top:4px}
+@media(max-width:640px){
+  header{height:102px;padding:0 14px;align-items:center;flex-direction:row}
+  .brand img{height:70px}
+  .menu-toggle{left:14px;width:42px;height:42px}
+  .reward-hero{flex-direction:row;align-items:center}
+  .flask-meter{width:105px;height:132px}
+  .flask-label{bottom:29px}
+  .flask-label strong{font-size:18px}
+}
+
 </style>
 </head>
 <body>
 <div class="badge">CONCEPT PREVIEW</div>
 <header>
-<div class="brand" onclick="show('home')"><img id="prepLabLogo" src="./assets/logo.webp" alt="PrepLab logo" onload="makeLogoBackgroundTransparent(this)"><div><b>PREPLAB</b><small>Healthy Meals · Fresh Results</small></div></div>
-<div class="topnav"><button onclick="show('rewards')">★ Rewards</button><button onclick="show('account')">Account</button><button onclick="show('basket')">Basket · 2</button></div>
+<button class="menu-toggle" aria-label="Open menu" onclick="toggleDrawer(true)"><span></span></button>
+<div class="brand" onclick="show('home')">
+  <img id="prepLabLogo" src="./assets/logo.webp" alt="PrepLab logo" onload="makeLogoBackgroundTransparent(this)">
+  <div><b>PREPLAB</b><small>Healthy Meals · Fresh Results</small></div>
+</div>
 </header>
+<div id="drawer" class="drawer" aria-hidden="true">
+  <div class="drawer-backdrop" onclick="toggleDrawer(false)"></div>
+  <aside class="drawer-panel">
+    <div class="drawer-head">
+      <img id="prepLabDrawerLogo" src="./assets/logo.webp" alt="PrepLab logo" onload="makeLogoBackgroundTransparent(this)">
+      <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer(false)">×</button>
+    </div>
+    <button class="drawer-link" onclick="toggleDrawer(false);show('rewards')">★ Rewards<small>PrepLab Points and rewards</small></button>
+    <button class="drawer-link" onclick="toggleDrawer(false);show('account')">Account<small>Profile, favourites and subscriptions</small></button>
+    <button class="drawer-link" onclick="toggleDrawer(false);show('basket')">Basket · 2<small>Review your current order</small></button>
+  </aside>
+</div>
 <main>
 
 <section id="home" class="screen active">
@@ -167,7 +275,15 @@ footer{max-width:1220px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;
 </section>
 
 <section id="rewards" class="screen page">
-<button class="back" onclick="show('home')">← Back</button><div class="reward-hero"><div><span class="eyebrow">PREPLAB POINTS</span><h1>126 points</h1><p>74 more points until your £10 PrepLab credit.</p></div><div class="ring"><div>126<small>POINTS</small></div></div></div>
+<button class="back" onclick="show('home')">← Back</button><div class="reward-hero"><div><span class="eyebrow">PREPLAB POINTS</span><h1>126 points</h1><p>74 more points until your £10 PrepLab credit.</p></div><div class="flask-meter" aria-label="126 of 200 PrepLab Points">
+  <div class="flask-shell"></div>
+  <div class="flask-inner"></div>
+  <div class="flask-liquid"></div>
+  <div class="flask-bubble one"></div>
+  <div class="flask-bubble two"></div>
+  <div class="flask-bubble three"></div>
+  <div class="flask-label"><strong>126</strong><small>POINTS</small></div>
+</div></div>
 <div class="reward-grid"><div class="reward"><b>50 points</b><h3>Free Smoothie</h3><button class="primary">Redeem</button></div><div class="reward"><b>100 points</b><h3>Protein Pancakes</h3><button class="primary">Redeem</button></div><div class="reward"><b>200 points</b><h3>£10 PrepLab Credit</h3><button class="secondary">74 pts to go</button></div></div><div class="note">Proposed loyalty structure — subject to client confirmation.</div>
 </section>
 
@@ -192,7 +308,14 @@ footer{max-width:1220px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;
 
 <script>
 const prices={regular:{12:60,18:90,24:100,30:120},premium:{12:72,18:105,24:120,30:145}};
-function show(id){document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});document.getElementById(id).classList.add('active');if(id==='menu'){var first=document.querySelector('#menuTabs .chip');selectMenuCategory('weekly',first)}window.scrollTo({top:0,behavior:'smooth'})}
+function toggleDrawer(open){
+  const drawer=document.getElementById('drawer');
+  if(!drawer)return;
+  drawer.classList.toggle('open',open);
+  drawer.setAttribute('aria-hidden',open?'false':'true');
+  document.body.style.overflow=open?'hidden':'';
+}
+function show(id){toggleDrawer(false);document.querySelectorAll('.screen').forEach(function(x){x.classList.remove('active')});document.getElementById(id).classList.add('active');if(id==='menu'){var first=document.querySelector('#menuTabs .chip');selectMenuCategory('weekly',first)}window.scrollTo({top:0,behavior:'smooth'})}
 function toggleGroup(btn){btn.parentElement.querySelectorAll('button').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
 function setPlan(plan,btn){toggleGroup(btn);document.getElementById('plan').textContent=plan.charAt(0).toUpperCase()+plan.slice(1);document.querySelectorAll('.package[data-q]').forEach(function(x){var q=x.dataset.q,p=x.querySelector('[data-price]');if(p&&prices[plan][q])p.textContent='£'+prices[plan][q]})}
 function pickPkg(btn){document.querySelectorAll('.package').forEach(function(x){x.classList.remove('selected')});btn.classList.add('selected');document.getElementById('qty').textContent=btn.dataset.q==='custom'?'Custom':btn.dataset.q}
