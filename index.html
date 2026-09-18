@@ -8,12 +8,12 @@
 <style>
 *{box-sizing:border-box}
 :root{--bg:#f4f6f2;--card:#fff;--ink:#0e130f;--muted:#687168;--green:#82ff46;--green2:#5fd42e;--line:#dde4da;--dark:#071108;--warn:#fff5dc}
-body{margin:0;background-color:var(--bg);background-image:linear-gradient(rgba(244,246,242,.86),rgba(244,246,242,.86)),url("./assets/kitchen-pattern.svg");background-repeat:repeat;background-size:auto,280px 280px;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background-color:#f1f4ee;background-image:url("./assets/kitchen-pattern.svg");background-repeat:repeat;background-size:270px 270px;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 .screen{display:none}.screen.active{display:block}
 header{position:sticky;top:0;z-index:30;background:#071108;color:#fff;padding:12px max(16px,4vw);display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 2px 18px rgba(0,0,0,.14)}
-.brand{display:flex;align-items:center;gap:14px;cursor:pointer;min-width:0}.brand img{height:66px;width:auto;display:block}.brand b{display:block;font-size:24px;letter-spacing:.06em}.brand small{display:block;color:#d7dfd5}
+.brand{display:flex;align-items:center;gap:14px;cursor:pointer;min-width:0}.brand img{height:72px;width:118px;object-fit:contain;object-position:center;display:block}.brand b{display:block;font-size:24px;letter-spacing:.06em}.brand small{display:block;color:#d7dfd5}
 .topnav{display:flex;gap:8px}.topnav button{background:#111c13;border:1px solid #2a422e;color:#fff;border-radius:13px;padding:12px 15px}
 main{max-width:1220px;margin:auto;padding:28px max(18px,4vw) 70px}
 .badge{position:fixed;right:14px;bottom:14px;z-index:40;background:#111;color:#fff;border-radius:999px;padding:9px 13px;font-size:11px;letter-spacing:.12em}
@@ -54,13 +54,13 @@ footer{max-width:1220px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;
 <body>
 <div class="badge">CONCEPT PREVIEW</div>
 <header>
-<div class="brand" onclick="show('home')"><img src="./assets/logo-transparent.png" alt="PrepLab logo"><div><b>PREPLAB</b><small>Healthy Meals · Fresh Results</small></div></div>
+<div class="brand" onclick="show('home')"><img id="prepLabLogo" src="./assets/logo.webp" alt="PrepLab logo" onload="makeLogoBackgroundTransparent(this)"><div><b>PREPLAB</b><small>Healthy Meals · Fresh Results</small></div></div>
 <div class="topnav"><button onclick="show('rewards')">★ Rewards</button><button onclick="show('account')">Account</button><button onclick="show('basket')">Basket · 2</button></div>
 </header>
 <main>
 
 <section id="home" class="screen active">
-<div class="hero"><div class="hero-copy"><span class="eyebrow">WEEKLY PREP MADE EASY</span><h1>Eat better.<br><span>Repeat faster.</span></h1><p>Fresh meal prep, flexible ordering and a faster way to repeat your favourites every week.</p><div class="actions"><button class="primary" onclick="show('weekly')">Order Weekly Prep</button><button class="secondary" onclick="show('reorder')">Repeat Last Week</button></div></div><div class="hero-media"><img src="./assets/meal-premium.webp" alt="PrepLab premium meal boxes"></div></div>
+<div class="hero"><div class="hero-copy"><span class="eyebrow">WEEKLY PREP MADE EASY</span><h1>Eat better.<br><span>Repeat faster.</span></h1><p>Fresh meal prep, flexible ordering and a faster way to repeat your favourites every week.</p><div class="actions"><button class="primary" onclick="show('weekly')">Order Weekly Prep</button><button class="secondary" onclick="show('reorder')">Repeat Last Week</button></div></div><div class="hero-media"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85" alt="PrepLab premium meal boxes"></div></div>
 <div class="quick">
 <button class="q green" onclick="show('weekly')">▦<strong>Order Weekly Prep</strong><small>12, 18, 24 or 30 meals</small></button>
 <button class="q" onclick="show('reorder')">↻<strong>Reorder Last Week</strong><small>Bring the full order back</small></button>
@@ -75,9 +75,9 @@ footer{max-width:1220px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;
 </div>
 <div class="section-head"><div><span class="eyebrow">PREPLAB</span><h2>Weekly meal options</h2></div><button class="link" onclick="show('menu')">View menu →</button></div>
 <div class="food-grid">
-<article class="food clickable" onclick="show('weekly')"><img src="./assets/meal-regular.webp" alt="Regular weekly prep"><div class="food-body"><span class="pill">REGULAR</span><h3>Regular Weekly Prep</h3><p>Choose your weekly package and customise your meals.</p><b>From £60</b></div></article>
-<article class="food clickable" onclick="openWeeklyPremium()"><img src="./assets/meal-premium.webp" alt="Premium weekly prep"><div class="food-body"><span class="pill">MORE PROTEIN</span><h3>Premium Weekly Prep</h3><p>The higher-protein weekly prep option.</p><b>From £72</b></div></article>
-<article class="food clickable" onclick="show('build')"><img src="./assets/meal-build.webp" alt="Build your meal"><div class="food-body"><span class="pill">BUILD YOUR MEAL</span><h3>Build Your Meal</h3><p>Choose protein, carb, greens and sauce.</p><b>From £8</b></div></article>
+<article class="food clickable" onclick="show('weekly')"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85" alt="Regular weekly prep"><div class="food-body"><span class="pill">REGULAR</span><h3>Regular Weekly Prep</h3><p>Choose your weekly package and customise your meals.</p><b>From £60</b></div></article>
+<article class="food clickable" onclick="openWeeklyPremium()"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85" alt="Premium weekly prep"><div class="food-body"><span class="pill">MORE PROTEIN</span><h3>Premium Weekly Prep</h3><p>The higher-protein weekly prep option.</p><b>From £72</b></div></article>
+<article class="food clickable" onclick="show('build')"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85" alt="Build your meal"><div class="food-body"><span class="pill">BUILD YOUR MEAL</span><h3>Build Your Meal</h3><p>Choose protein, carb, greens and sauce.</p><b>From £8</b></div></article>
 </div>
 </section>
 
@@ -138,7 +138,7 @@ footer{max-width:1220px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;
 
 <section id="favourites" class="screen page">
 <button class="back" onclick="show('home')">← Back</button><span class="eyebrow">MY FAVOURITES</span><h1>Your quickest picks</h1><p>Saved favourites make weekly ordering faster.</p>
-<div class="food-grid"><article class="food clickable" onclick="show('build')"><img src="./assets/meal-build.webp"><div class="food-body"><span class="pill">♥ SAVED</span><h3>Salt & Pepper Chicken</h3><p>Tap to add or customise.</p></div></article><article class="food clickable" onclick="show('build')"><img src="./assets/meal-premium.webp"><div class="food-body"><span class="pill">♥ SAVED</span><h3>Steak & Rice</h3><p>Tap to add or customise.</p></div></article><article class="food"><img src="./assets/meal-build.webp"><div class="food-body"><span class="pill">♥ SAVED</span><h3>Protein Pancakes</h3><p>Menu details to confirm.</p></div></article></div>
+<div class="food-grid"><article class="food clickable" onclick="show('build')"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85"><div class="food-body"><span class="pill">♥ SAVED</span><h3>Salt & Pepper Chicken</h3><p>Tap to add or customise.</p></div></article><article class="food clickable" onclick="show('build')"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85"><div class="food-body"><span class="pill">♥ SAVED</span><h3>Steak & Rice</h3><p>Tap to add or customise.</p></div></article><article class="food"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85"><div class="food-body"><span class="pill">♥ SAVED</span><h3>Protein Pancakes</h3><p>Menu details to confirm.</p></div></article></div>
 </section>
 
 <section id="subscription" class="screen page">
@@ -163,7 +163,7 @@ footer{max-width:1220px;margin:0 auto 40px;padding:0 max(18px,4vw);display:flex;
 
 <section id="basket" class="screen page">
 <button class="back" onclick="show('home')">← Back</button><span class="eyebrow">CHECKOUT</span><h1>Your basket</h1><p>Fast checkout, with guest ordering and optional account creation.</p>
-<div class="two"><div class="basket"><div class="item"><img src="./assets/meal-regular.webp"><div><b>18 Meal Regular Prep</b><p>Mixed weekly selection</p></div><b>£90</b></div><div class="row"><span>Delivery</span><b>FREE · Warrington</b></div><div class="form-grid"><div class="field"><label>Name</label><input placeholder="Your name"></div><div class="field"><label>Mobile</label><input placeholder="Mobile number"></div><div class="field"><label>Email</label><input placeholder="Email address"></div><div class="field"><label>Preferred day</label><select><option>Friday</option><option>Saturday</option><option>Sunday</option></select></div><div class="field full"><label>Delivery address</label><input placeholder="Address"></div></div><div class="consent"><input type="checkbox"><small>Send me PrepLab offers and weekly meal reminders by email.</small></div><div class="consent"><input type="checkbox"><small>Send me PrepLab offers and weekly meal reminders by text.</small></div><div class="note">Consent controls are deliberately unticked in this concept.</div></div><div class="payment"><div class="row"><span>Total</span><b>£90.00</b></div><button class="pay apple"> Pay</button><button class="pay google">G Pay</button><button class="pay cardpay">Pay by card</button><button class="ghost" style="width:100%;margin-top:10px">Continue as guest</button><button class="ghost" style="width:100%;margin-top:8px">Save my details for faster ordering next time</button><div class="note">Visual only — no real payment processing or account creation.</div></div></div>
+<div class="two"><div class="basket"><div class="item"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85"><div><b>18 Meal Regular Prep</b><p>Mixed weekly selection</p></div><b>£90</b></div><div class="row"><span>Delivery</span><b>FREE · Warrington</b></div><div class="form-grid"><div class="field"><label>Name</label><input placeholder="Your name"></div><div class="field"><label>Mobile</label><input placeholder="Mobile number"></div><div class="field"><label>Email</label><input placeholder="Email address"></div><div class="field"><label>Preferred day</label><select><option>Friday</option><option>Saturday</option><option>Sunday</option></select></div><div class="field full"><label>Delivery address</label><input placeholder="Address"></div></div><div class="consent"><input type="checkbox"><small>Send me PrepLab offers and weekly meal reminders by email.</small></div><div class="consent"><input type="checkbox"><small>Send me PrepLab offers and weekly meal reminders by text.</small></div><div class="note">Consent controls are deliberately unticked in this concept.</div></div><div class="payment"><div class="row"><span>Total</span><b>£90.00</b></div><button class="pay apple"> Pay</button><button class="pay google">G Pay</button><button class="pay cardpay">Pay by card</button><button class="ghost" style="width:100%;margin-top:10px">Continue as guest</button><button class="ghost" style="width:100%;margin-top:8px">Save my details for faster ordering next time</button><div class="note">Visual only — no real payment processing or account creation.</div></div></div>
 </section>
 
 <section id="rewards" class="screen page">
@@ -204,28 +204,69 @@ function showAdminTab(name,btn){document.querySelectorAll('.admin-section').forE
 
 const menuData={
 weekly:[
-{title:'Regular Weekly Prep',desc:'Choose 12, 18, 24 or 30 meals, then customise the weekly order.',price:'From £60',img:'./assets/meal-regular.webp',action:'weekly'},
-{title:'Premium Weekly Prep',desc:'The higher-protein weekly prep option.',price:'From £72',img:'./assets/meal-premium.webp',action:'premium'},
-{title:'Build Your Meal',desc:'Choose one protein, one carb, greens and sauce.',price:'Medium £8 · Large £9 · Extra Large £10',img:'./assets/meal-build.webp',action:'build'}],
+{title:'Regular Weekly Prep',desc:'Choose 12, 18, 24 or 30 meals, then customise the weekly order.',price:'From £60',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85',action:'weekly'},
+{title:'Premium Weekly Prep',desc:'The higher-protein weekly prep option.',price:'From £72',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85',action:'premium'},
+{title:'Build Your Meal',desc:'Choose one protein, one carb, greens and sauce.',price:'Medium £8 · Large £9 · Extra Large £10',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85',action:'build'}],
 premium:[
-{title:'12 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£72',img:'./assets/meal-premium.webp',action:'premium'},
-{title:'18 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£105',img:'./assets/meal-premium.webp',action:'premium'},
-{title:'24 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£120',img:'./assets/meal-premium.webp',action:'premium'},
-{title:'30 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£145',img:'./assets/meal-premium.webp',action:'premium'}],
-hot:[{title:'Build Your Hot Meal',desc:'Use PrepLab\'s confirmed Build Your Meal options: protein, carb, greens and sauce.',price:'From £8',img:'./assets/meal-build.webp',action:'build'}],
-breakfast:[{title:'Breakfast',desc:'This is a confirmed PrepLab menu category. Individual breakfast products and prices still need Inga\'s confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
-pancakes:[{title:'Protein Pancakes',desc:'Confirmed PrepLab menu category and proposed rewards item.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
-wraps:[{title:'Wraps',desc:'Confirmed PrepLab menu category. Flavours and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
-smoothies:[{title:'Smoothies',desc:'Confirmed PrepLab menu category. Flavours and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
-snacks:[{title:'Protein Snacks',desc:'Confirmed PrepLab menu category. Products and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
-soups:[{title:'Soups',desc:'Confirmed PrepLab menu category. Soup choices and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
-drinks:[{title:'Drinks',desc:'Confirmed PrepLab menu category. Individual drinks and prices still need confirmation.',price:'Menu details to confirm',img:'./assets/meal-build.webp'}],
-specials:[{title:'Example Today\'s Special',desc:'Chicken pasta + protein pancakes £3 — this is Inga\'s own example of how the specials feature could work.',price:'Example: £3',img:'./assets/meal-build.webp'}]
+{title:'12 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£72',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85',action:'premium'},
+{title:'18 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£105',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85',action:'premium'},
+{title:'24 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£120',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85',action:'premium'},
+{title:'30 Premium Meals',desc:'Premium weekly prep with more protein.',price:'£145',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85',action:'premium'}],
+hot:[{title:'Build Your Hot Meal',desc:'Use PrepLab\'s confirmed Build Your Meal options: protein, carb, greens and sauce.',price:'From £8',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85',action:'build'}],
+breakfast:[{title:'Breakfast',desc:'This is a confirmed PrepLab menu category. Individual breakfast products and prices still need Inga\'s confirmation.',price:'Menu details to confirm',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85'}],
+pancakes:[{title:'Protein Pancakes',desc:'Confirmed PrepLab menu category and proposed rewards item.',price:'Menu details to confirm',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85'}],
+wraps:[{title:'Wraps',desc:'Confirmed PrepLab menu category. Flavours and prices still need confirmation.',price:'Menu details to confirm',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85'}],
+smoothies:[{title:'Smoothies',desc:'Confirmed PrepLab menu category. Flavours and prices still need confirmation.',price:'Menu details to confirm',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85'}],
+snacks:[{title:'Protein Snacks',desc:'Confirmed PrepLab menu category. Products and prices still need confirmation.',price:'Menu details to confirm',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85'}],
+soups:[{title:'Soups',desc:'Confirmed PrepLab menu category. Soup choices and prices still need confirmation.',price:'Menu details to confirm',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85'}],
+drinks:[{title:'Drinks',desc:'Confirmed PrepLab menu category. Individual drinks and prices still need confirmation.',price:'Menu details to confirm',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85'}],
+specials:[{title:'Example Today\'s Special',desc:'Chicken pasta + protein pancakes £3 — this is Inga\'s own example of how the specials feature could work.',price:'Example: £3',img:'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85'}]
 };
 function runMenuAction(action){if(action==='weekly')show('weekly');else if(action==='premium')openWeeklyPremium();else if(action==='build')show('build')}
 function selectMenuCategory(category,btn){document.querySelectorAll('#menuTabs .chip').forEach(function(x){x.classList.remove('active')});if(btn)btn.classList.add('active');renderMenu(category)}
 function renderMenu(category){var c=document.getElementById('menuContent');if(!c)return;var items=menuData[category]||[];c.innerHTML=items.map(function(item){var clickable=item.action?' clickable':'';var click=item.action?' onclick="runMenuAction(\''+item.action+'\')"':'';return '<article class="food'+clickable+'"'+click+'><img src="'+item.img+'" alt="'+item.title+'"><div class="food-body"><h3>'+item.title+'</h3><p>'+item.desc+'</p><b>'+item.price+'</b></div></article>'}).join('');if(['breakfast','pancakes','wraps','smoothies','snacks','soups','drinks'].indexOf(category)>=0)c.innerHTML+='<div class="menu-note"><b>Concept note</b>The section is confirmed by Inga, but the detailed products and prices have not yet been supplied, so this prototype does not invent them.</div>'}
 renderMenu('weekly');
+
+function makeLogoBackgroundTransparent(img){
+  if(img.dataset.cleaned === '1' || !img.naturalWidth) return;
+  try{
+    const canvas=document.createElement('canvas');
+    const w=img.naturalWidth, h=img.naturalHeight;
+    canvas.width=w; canvas.height=h;
+    const ctx=canvas.getContext('2d',{willReadFrequently:true});
+    ctx.drawImage(img,0,0);
+    const image=ctx.getImageData(0,0,w,h);
+    const d=image.data;
+    const seen=new Uint8Array(w*h);
+    const queue=new Int32Array(w*h);
+    let head=0,tail=0;
+    function nearWhite(i){
+      const p=i*4;
+      return d[p]>232 && d[p+1]>232 && d[p+2]>232;
+    }
+    function add(x,y){
+      if(x<0||y<0||x>=w||y>=h) return;
+      const i=y*w+x;
+      if(seen[i]||!nearWhite(i)) return;
+      seen[i]=1; queue[tail++]=i;
+    }
+    for(let x=0;x<w;x++){add(x,0);add(x,h-1)}
+    for(let y=0;y<h;y++){add(0,y);add(w-1,y)}
+    while(head<tail){
+      const i=queue[head++], x=i%w, y=(i/w)|0;
+      const p=i*4;
+      d[p+3]=0;
+      add(x+1,y);add(x-1,y);add(x,y+1);add(x,y-1);
+    }
+    ctx.putImageData(image,0,0);
+    img.dataset.cleaned='1';
+    img.onload=null;
+    img.src=canvas.toDataURL('image/png');
+  }catch(e){
+    console.warn('Logo transparency fallback failed',e);
+  }
+}
+
 </script>
 </body>
 </html>
