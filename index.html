@@ -164,6 +164,59 @@ header{
 .drawer-sublink:hover,.drawer-link:hover,.drawer-section:hover{background:rgba(255,255,255,.08)}
 .drawer-separator{height:1px;background:rgba(255,255,255,.08);margin:2px 0}
 
+
+/* Dynamic PrepLab points flask — polished SVG version */
+.flask-meter{
+  position:relative;
+  width:150px;
+  height:176px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  filter:drop-shadow(0 0 14px rgba(130,255,70,.16))
+}
+.flask-meter svg{width:100%;height:100%;display:block;overflow:visible}
+.flask-number{
+  font:900 28px Arial,Helvetica,sans-serif;
+  fill:#fff;
+  text-anchor:middle;
+  paint-order:stroke;
+  stroke:rgba(0,0,0,.18);
+  stroke-width:1px
+}
+.flask-word{
+  font:800 10px Arial,Helvetica,sans-serif;
+  fill:#f5fff0;
+  text-anchor:middle;
+  letter-spacing:2.4px
+}
+.flask-glass-outline{
+  fill:url(#glassGradient);
+  stroke:#f7fbf5;
+  stroke-width:6;
+  stroke-linejoin:round
+}
+.flask-inner-line{
+  fill:none;
+  stroke:rgba(5,18,9,.7);
+  stroke-width:2.2;
+  stroke-linejoin:round
+}
+.flask-highlight{
+  fill:none;
+  stroke:rgba(255,255,255,.72);
+  stroke-width:6;
+  stroke-linecap:round
+}
+.reward-hero .reward-copy{min-width:0}
+@media(max-width:640px){
+  .reward-hero{gap:10px}
+  .reward-hero .reward-copy{flex:1}
+  .reward-hero h1{font-size:clamp(32px,10vw,48px)}
+  .flask-meter{width:118px;height:144px}
+  .flask-number{font-size:25px}
+}
+
 </style>
 </head>
 <body>
@@ -227,13 +280,13 @@ header{
 <button class="q green" onclick="show('weekly')">▦<strong>Order Weekly Prep</strong><small>12, 18, 24 or 30 meals</small></button>
 <button class="q" onclick="show('reorder')">↻<strong>Reorder Last Week</strong><small>Bring the full order back</small></button>
 <button class="q" onclick="show('menu')">☰<strong>Order Food Today</strong><small>Browse the PrepLab menu</small></button>
-<button class="q" onclick="show('rewards')">★<strong>My Rewards</strong><small>126 PrepLab Points</small></button>
+<button class="q" onclick="show('rewards')">★<strong>My Rewards</strong><small><span id="quickPoints">126</span> PrepLab Points</small></button>
 <button class="q" onclick="show('favourites')">♥<strong>My Favourites</strong><small>Your saved meals</small></button>
 </div>
 <div class="home-panels">
 <div class="panel-card"><span class="eyebrow">THIS WEEK'S OFFER</span><h3>Example Today's Special</h3><p>Chicken pasta + protein pancakes £3 — shown as an example of the kind of offer PrepLab could publish instantly.</p><button class="ghost" onclick="show('menu')">View offer</button></div>
 <div class="panel-card"><span class="eyebrow">NEW MEALS</span><h3>Fresh menu updates</h3><p>New meal cards could appear here as Inga adds them from the admin.</p><button class="ghost" onclick="show('menu')">Browse menu</button></div>
-<div class="panel-card dark"><span class="eyebrow">YOUR POINTS</span><div class="stat">126</div><p>74 more points until £10 PrepLab credit.</p><button class="secondary" onclick="show('rewards')">View rewards</button></div>
+<div class="panel-card dark"><span class="eyebrow">YOUR POINTS</span><div class="stat" id="homePointsStat">126</div><p id="homePointsProgress">74 more points until £10 PrepLab credit.</p><button class="secondary" onclick="show('rewards')">View rewards</button></div>
 </div>
 <div class="section-head"><div><span class="eyebrow">PREPLAB</span><h2>Weekly meal options</h2></div><button class="link" onclick="show('menu')">View menu →</button></div>
 <div class="food-grid">
@@ -329,16 +382,62 @@ header{
 </section>
 
 <section id="rewards" class="screen page">
-<button class="back" onclick="show('home')">← Back</button><div class="reward-hero"><div><span class="eyebrow">PREPLAB POINTS</span><h1>126 points</h1><p>74 more points until your £10 PrepLab credit.</p></div><div class="flask-meter" aria-label="126 of 200 PrepLab Points">
-  <div class="flask-shell"></div>
-  <div class="flask-inner"></div>
-  <div class="flask-liquid"></div>
-  <div class="flask-bubble one"></div>
-  <div class="flask-bubble two"></div>
-  <div class="flask-bubble three"></div>
-  <div class="flask-label"><strong>126</strong><small>POINTS</small></div>
-</div></div>
-<div class="reward-grid"><div class="reward"><b>50 points</b><h3>Free Smoothie</h3><button class="primary">Redeem</button></div><div class="reward"><b>100 points</b><h3>Protein Pancakes</h3><button class="primary">Redeem</button></div><div class="reward"><b>200 points</b><h3>£10 PrepLab Credit</h3><button class="secondary">74 pts to go</button></div></div><div class="note">Proposed loyalty structure — subject to client confirmation.</div>
+<button class="back" onclick="show('home')">← Back</button>
+<div class="reward-hero">
+  <div class="reward-copy">
+    <span class="eyebrow">PREPLAB POINTS</span>
+    <h1 id="rewardPointsTitle">126 points</h1>
+    <p id="rewardRemainingText">74 more points until your £10 PrepLab credit.</p>
+  </div>
+
+  <div class="flask-meter" id="pointsFlask" aria-label="126 of 200 PrepLab Points">
+    <svg viewBox="0 0 180 210" role="img" aria-hidden="true">
+      <defs>
+        <linearGradient id="glassGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#dce9e2" stop-opacity=".48"/>
+          <stop offset="42%" stop-color="#203c2c" stop-opacity=".25"/>
+          <stop offset="100%" stop-color="#0a1710" stop-opacity=".58"/>
+        </linearGradient>
+        <linearGradient id="liquidGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#a8ff68"/>
+          <stop offset="28%" stop-color="#75ff38"/>
+          <stop offset="100%" stop-color="#2dba08"/>
+        </linearGradient>
+        <filter id="liquidGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <clipPath id="flaskInteriorClip">
+          <path d="M71 20H109V66L151 164Q158 181 143 190H37Q22 181 29 164L71 66Z"/>
+        </clipPath>
+      </defs>
+
+      <path class="flask-glass-outline" d="M71 20H109V66L151 164Q158 181 143 190H37Q22 181 29 164L71 66Z"/>
+      <path class="flask-inner-line" d="M71 20H109V66L151 164Q158 181 143 190H37Q22 181 29 164L71 66Z"/>
+
+      <g clip-path="url(#flaskInteriorClip)">
+        <rect id="flaskLiquid" x="22" y="114" width="136" height="76" fill="url(#liquidGradient)" filter="url(#liquidGlow)"/>
+        <ellipse id="flaskSurface" cx="90" cy="114" rx="61" ry="7" fill="#c8ff9d" opacity=".88"/>
+        <circle cx="58" cy="148" r="7" fill="#8fff48" stroke="#d8ffc3" stroke-width="1.5"/>
+        <circle cx="121" cy="157" r="5" fill="#90ff4b" stroke="#ddffca" stroke-width="1.2"/>
+        <circle cx="104" cy="135" r="3.8" fill="#a3ff68"/>
+        <circle cx="73" cy="169" r="3" fill="#a7ff70"/>
+        <circle cx="128" cy="174" r="2.6" fill="#b0ff7e"/>
+      </g>
+
+      <path class="flask-highlight" d="M76 30V67L47 136"/>
+      <path class="flask-highlight" d="M116 84L140 145" opacity=".45"/>
+
+      <circle cx="112" cy="57" r="6.5" fill="#83ff39" stroke="#d7ffc1" stroke-width="1.5"/>
+      <circle cx="100" cy="43" r="4" fill="#8fff43"/>
+      <circle cx="119" cy="28" r="3.3" fill="#a1ff67"/>
+
+      <text id="flaskPointsNumber" x="90" y="158" class="flask-number">126</text>
+      <text x="90" y="174" class="flask-word">POINTS</text>
+    </svg>
+  </div>
+</div>
+<div class="reward-grid"><div class="reward"><b>50 points</b><h3>Free Smoothie</h3><button class="primary" id="reward50Btn">Redeem</button></div><div class="reward"><b>100 points</b><h3>Protein Pancakes</h3><button class="primary" id="reward100Btn">Redeem</button></div><div class="reward"><b>200 points</b><h3>£10 PrepLab Credit</h3><button class="secondary" id="reward200Btn">74 pts to go</button></div></div><div class="note">Proposed loyalty structure — subject to client confirmation.</div>
 </section>
 
 <section id="account" class="screen page">
@@ -422,6 +521,94 @@ function runMenuAction(action){if(action==='weekly')show('weekly');else if(actio
 function selectMenuCategory(category,btn){document.querySelectorAll('#menuTabs .chip').forEach(function(x){x.classList.remove('active')});if(btn)btn.classList.add('active');renderMenu(category)}
 function renderMenu(category){var c=document.getElementById('menuContent');if(!c)return;var items=menuData[category]||[];c.innerHTML=items.map(function(item){var clickable=item.action?' clickable':'';var click=item.action?' onclick="runMenuAction(\''+item.action+'\')"':'';return '<article class="food'+clickable+'"'+click+'><img src="'+item.img+'" alt="'+item.title+'"><div class="food-body"><h3>'+item.title+'</h3><p>'+item.desc+'</p><b>'+item.price+'</b></div></article>'}).join('');if(['breakfast','pancakes','wraps','smoothies','snacks','soups','drinks'].indexOf(category)>=0)c.innerHTML+='<div class="menu-note"><b>Concept note</b>The section is confirmed by Inga, but the detailed products and prices have not yet been supplied, so this prototype does not invent them.</div>'}
 renderMenu('weekly');
+
+
+const rewardState={
+  currentPoints:126,
+  milestones:[
+    {points:50,label:'Free Smoothie'},
+    {points:100,label:'Protein Pancakes'},
+    {points:200,label:'£10 PrepLab credit'}
+  ]
+};
+
+function getNextReward(points){
+  for(const reward of rewardState.milestones){
+    if(points<reward.points)return reward;
+  }
+  return rewardState.milestones[rewardState.milestones.length-1];
+}
+
+function updateRewardsUI(points){
+  const cleanPoints=Math.max(0,Number(points)||0);
+  rewardState.currentPoints=cleanPoints;
+
+  const maxReward=rewardState.milestones[rewardState.milestones.length-1];
+  const nextReward=getNextReward(cleanPoints);
+  const atOrAboveMax=cleanPoints>=maxReward.points;
+  const target=atOrAboveMax?maxReward.points:nextReward.points;
+  const remaining=Math.max(target-cleanPoints,0);
+  const progress=Math.min(cleanPoints/target,1);
+
+  const title=document.getElementById('rewardPointsTitle');
+  const remainingText=document.getElementById('rewardRemainingText');
+  const number=document.getElementById('flaskPointsNumber');
+  const liquid=document.getElementById('flaskLiquid');
+  const surface=document.getElementById('flaskSurface');
+  const flask=document.getElementById('pointsFlask');
+  const quick=document.getElementById('quickPoints');
+  const homeStat=document.getElementById('homePointsStat');
+  const homeProgress=document.getElementById('homePointsProgress');
+
+  if(title)title.textContent=cleanPoints+' points';
+  if(number)number.textContent=cleanPoints;
+  if(quick)quick.textContent=cleanPoints;
+  if(homeStat)homeStat.textContent=cleanPoints;
+
+  if(atOrAboveMax){
+    if(remainingText)remainingText.textContent=maxReward.label+' unlocked.';
+    if(homeProgress)homeProgress.textContent=maxReward.label+' unlocked.';
+  }else{
+    const copy=remaining+' more point'+(remaining===1?'':'s')+' until your '+nextReward.label+'.';
+    if(remainingText)remainingText.textContent=copy;
+    if(homeProgress)homeProgress.textContent=copy;
+  }
+
+  // Usable liquid range inside the flask: y 72 (full) to y 188 (empty).
+  const liquidBottom=188;
+  const liquidRange=116;
+  const liquidHeight=Math.max(5,liquidRange*progress);
+  const liquidY=liquidBottom-liquidHeight;
+  if(liquid){
+    liquid.setAttribute('y',liquidY.toFixed(1));
+    liquid.setAttribute('height',liquidHeight.toFixed(1));
+  }
+  if(surface)surface.setAttribute('cy',liquidY.toFixed(1));
+  if(flask)flask.setAttribute('aria-label',cleanPoints+' of '+target+' PrepLab Points');
+
+  rewardState.milestones.forEach(function(reward){
+    const btn=document.getElementById('reward'+reward.points+'Btn');
+    if(!btn)return;
+    if(cleanPoints>=reward.points){
+      btn.textContent='Redeem';
+      btn.className='primary';
+    }else{
+      btn.textContent=(reward.points-cleanPoints)+' pts to go';
+      btn.className='secondary';
+    }
+  });
+}
+
+// Prototype convenience: ?points=80 lets us demonstrate another customer balance
+// without adding a visible developer control to the client-facing app.
+(function initialiseRewards(){
+  const requested=new URLSearchParams(window.location.search).get('points');
+  if(requested!==null && requested!==''){
+    rewardState.currentPoints=Math.max(0,Number(requested)||0);
+  }
+  updateRewardsUI(rewardState.currentPoints);
+})();
+window.setPrepLabPoints=updateRewardsUI;
 
 function makeLogoBackgroundTransparent(img){
   if(img.dataset.cleaned === '1' || !img.naturalWidth) return;
